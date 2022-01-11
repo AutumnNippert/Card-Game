@@ -62,7 +62,7 @@ public class Board {
                 board[ 1 ][ 0 ].toString( ).split( "\n" )[ 4 ],
                 board[ 1 ][ 1 ].toString( ).split( "\n" )[ 4 ],
                 board[ 1 ][ 2 ].toString( ).split( "\n" )[ 4 ],
-                board[ 1 ][ 3 ].toString( ).split( "\n" )[ 4 ]);
+                board[ 1 ][ 3 ].toString( ).split( "\n" )[ 4 ] );
         final int boardHeight = boardString.split( "\n" ).length;
 
         String[] strs = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
@@ -74,7 +74,18 @@ public class Board {
         for ( int i = 0; i < strs.length; i++ ) {
             str += strs[ i ] + "\n";
         }
-        System.out.println( "BOARD" );
         return str;
+    }
+
+    public Card[][] getCards( ) {
+        return board;
+    }
+
+    public void placeCard( Card c, Coordinate pos ) {
+        board[ pos.y ][ pos.x - 1 ] = c;
+    }
+
+    public boolean cardExists( Coordinate pos ) {
+        return board[ pos.y ][ pos.x - 1 ] != Card.EMPTY;
     }
 }

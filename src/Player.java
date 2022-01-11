@@ -2,9 +2,10 @@ import java.util.ArrayList;
 
 public class Player {
     private ArrayList< Card > cards = new ArrayList<>( 0 );
+    private int playerNumber;
 
-    public Player( ) {
-
+    public Player( int number ) {
+        this.playerNumber = number;
     }
 
     public void giveCard( Card c ) {
@@ -20,18 +21,44 @@ public class Player {
     }
 
     public String displayCards( ) {
-        String[] strs = {"", "", "", "", ""};
+        String[] strs = { "", "", "", "", "" };
         for ( int i = 0; i < cards.size( ); i++ ) {
             final int cardHeight = 5;
             for ( int j = 0; j < cardHeight; j++ ) {
-                strs[j] += ( cards.get( i ).toString( ).split( "\n" )[j] + "\t");
+                strs[ j ] += ( cards.get( i ).toString( ).split( "\n" )[ j ] + "\t" );
             }
         }
 
         String str = "";
         for ( int i = 0; i < strs.length; i++ ) {
-            str += strs[i] + "\n";
+            str += strs[ i ] + "\n";
         }
-        return str.substring( 0, str.length( ) - 1);
+        return str.substring( 0, str.length( ) - 1 );
+    }
+
+    public String displayCardBacks( ) {
+        String[] strs = { "", "", "", "", "" };
+        for ( int i = 0; i < cards.size( ); i++ ) {
+            final int cardHeight = 5;
+            for ( int j = 0; j < cardHeight; j++ ) {
+                strs[ j ] += ( cards.get( i ).back.split( "\n" )[ j ] + "\t" );
+            }
+        }
+
+        String str = "";
+        for ( int i = 0; i < strs.length; i++ ) {
+            str += strs[ i ] + "\n";
+        }
+        return str.substring( 0, str.length( ) - 1 );
+    }
+
+    public void playCard( Board board, Card c, Coordinate pos ) {
+        cards.remove( c );
+        board.placeCard( c, pos );
+        System.out.println( "Card: " + c.getName( ) + " played at position: " + pos.x );
+    }
+
+    public boolean hasCard( Card c ) {
+        return cards.contains( c );
     }
 }
