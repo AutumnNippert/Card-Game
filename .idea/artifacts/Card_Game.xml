@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="Card Game">
+    <output-path>$PROJECT_DIR$/out/artifacts/Card_Game</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="" />
+        <option name="description" value="Test" />
+        <option name="height" value="900" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="Test" />
+        <option name="vendor" value="Test" />
+        <option name="version" value="0.3" />
+        <option name="width" value="1600" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="Card_Game.jar">
+        <element id="module-output" name="Card Game" />
+      </element>
+    </root>
+  </artifact>
+</component>

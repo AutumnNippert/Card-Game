@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Player {
     private ArrayList< Card > cards = new ArrayList<>( 0 );
     private int playerNumber;
+    private int mana;
     private Deck deck;
 
     public Player( int number, Deck deck ) {
@@ -15,10 +16,12 @@ public class Player {
     }
 
     public void drawCardFromDeck( ) {
-        int cardIndex = getRandInt( deck.getCards( ).size( ) );
-        Card c = deck.getCards( ).get( cardIndex );
-        giveCard( c );
-        deck.getCards( ).remove( c );
+        if ( deck.getCards( ).size( ) > 0 ) {
+            int cardIndex = getRandInt( deck.getCards( ).size( ) );
+            Card c = deck.getCards( ).get( cardIndex );
+            giveCard( c );
+            deck.getCards( ).remove( c );
+        }
     }
 
     public int getRandInt( int max ) {
@@ -31,6 +34,14 @@ public class Player {
 
     public void setCards( ArrayList< Card > cards ) {
         this.cards = cards;
+    }
+
+    public int getMana( ) {
+        return mana;
+    }
+
+    public void setMana( int mana ) {
+        this.mana = mana;
     }
 
     public String displayCards( ) {
