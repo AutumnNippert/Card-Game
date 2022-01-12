@@ -3,24 +3,20 @@ import java.util.NoSuchElementException;
 public enum Card {
 
     //Humans
-    KNIGHT( "Knight", 2, 2 ),
-    TANK( "Tank", 1, 5 ),
-    GUNNER( "Gunner", 4, 1 ),
-    WIZARD( "Wizard", 3, 1 ),
+    KNIGHT( "Knight", 2, 2, 2, "A heroic knight" ),
+    TANK( "Tank", 4, 1, 5, "A large soldier" ),
+    GUNNER( "Gunner", 3, 4, 1, "A gunner" ),
+    WIZARD( "Wizard", 2, 3, 1, "A wizard" ),
 
     //Undead
-    OGRE( "OGRE", 4, 4 ),
-    ZOMBIE( "ZOMBIE", 1, 2 ),
-    SKELETON( "SKELETON", 2, 1 ),
-    SKULLKING( "SKULL KING", 5, 5 ),
+    OGRE( "OGRE", 4, 4, 4, "An ogre" ),
+    ZOMBIE( "ZOMBIE", 1, 1, 2, "An undead zombie" ),
+    SKELETON( "SKELETON", 2, 2, 1, "An undead" ),
+    SKULLKING( "SKULL KING", 5, 5, 5, "King of the undead" ),
 
     //Empty
-    EMPTY( "EMPTY", 0, 0 );
+    EMPTY( "EMPTY", 0, 0, 0, "Empty" );
 
-
-    private String name;
-    private int atk;
-    private int hp;
 
     public String back = String.format( """
             ┌────────────────┐
@@ -29,11 +25,18 @@ public enum Card {
             │                │
             └────────────────┘
             """ );
+    private String name;
+    private int mana;
+    private int atk;
+    private int hp;
+    private String desc;
 
-    Card( String name, int atk, int hp ) {
+    Card( String name, int mana, int atk, int hp, String desc ) {
         this.name = name;
+        this.mana = mana;
         this.atk = atk;
         this.hp = hp;
+        this.desc = desc;
     }
 
     public static Card getCard( String str ) throws NoSuchElementException {
@@ -70,6 +73,22 @@ public enum Card {
         this.hp = hp;
     }
 
+    public int getMana( ) {
+        return mana;
+    }
+
+    public void setMana( int mana ) {
+        this.mana = mana;
+    }
+
+    public String getDesc( ) {
+        return desc;
+    }
+
+    public void setDesc( String desc ) {
+        this.desc = desc;
+    }
+
     @Override
     public String toString( ) {
         if ( this == Card.EMPTY ) {
@@ -85,13 +104,14 @@ public enum Card {
             return String.format(
                     """
                             ┌────────────────┐
-                            │NAME: %10s│
-                            │ATK: %11d│
-                            │HP: %12d│
+                            │ %-13s%1s │
+                            │                │
+                            │ %-1s%13s │
                             └────────────────┘
                             """,
                     getName( ),
-                    getAtk( ),
+                    ( Utility.Colors.CYAN + getMana( ) + Utility.Colors.RESET ),
+                    ( Utility.Colors.RED + getAtk( ) + Utility.Colors.RESET ),
                     getHp( ) );
         }
     }

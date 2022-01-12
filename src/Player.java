@@ -3,13 +3,26 @@ import java.util.ArrayList;
 public class Player {
     private ArrayList< Card > cards = new ArrayList<>( 0 );
     private int playerNumber;
+    private Deck deck;
 
-    public Player( int number ) {
+    public Player( int number, Deck deck ) {
         this.playerNumber = number;
+        this.deck = deck;
     }
 
     public void giveCard( Card c ) {
         cards.add( c );
+    }
+
+    public void drawCardFromDeck( ) {
+        int cardIndex = getRandInt( deck.getCards( ).size( ) );
+        Card c = deck.getCards( ).get( cardIndex );
+        giveCard( c );
+        deck.getCards( ).remove( c );
+    }
+
+    public int getRandInt( int max ) {
+        return ( int ) ( Math.random( ) * max );
     }
 
     private ArrayList< Card > getCards( ) {
