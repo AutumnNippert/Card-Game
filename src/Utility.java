@@ -1,5 +1,7 @@
+import java.util.Scanner;
+
 public class Utility {
-    public class Colors {
+    public static class Colors {
         //COLORS
         public static final String RESET = "\u001B[0m";
         public static final String BLACK = "\u001B[30m";
@@ -21,4 +23,33 @@ public class Utility {
         public static final String WHITE_BACKGROUND = "\u001B[47m";
     }
 
+    public static class MessagePrompts {
+        public static void invalidPosition( ) {
+            Scanner scn = new Scanner( System.in );
+            System.out.println( "Invalid position selected" );
+            System.out.print( "Press 'Enter' to continue..." );
+            scn.nextLine( );
+        }
+
+        public static void notEnoughMana( ) {
+            Scanner scn = new Scanner( System.in );
+            System.out.println( "Not enough mana to accomplish that action" );
+            System.out.print( "Press 'Enter' to continue..." );
+            scn.nextLine( );
+        }
+
+        public static void valueNotInRange( ) {
+            Scanner scn = new Scanner( System.in );
+            System.out.println( "Value not in range" );
+            System.out.print( "Press 'Enter' to continue..." );
+            scn.nextLine( );
+        }
+
+        public static void invalidSelection( ) {
+            Scanner scn = new Scanner( System.in );
+            System.out.println( "Invalid selection" );
+            System.out.print( "Press 'Enter' to continue..." );
+            scn.nextLine( );
+        }
+    }
 }

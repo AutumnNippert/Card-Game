@@ -9,10 +9,13 @@ public enum Card {
     WIZARD( "Wizard", 2, 3, 1, "A wizard" ),
 
     //Undead
-    OGRE( "OGRE", 4, 4, 4, "An ogre" ),
-    ZOMBIE( "ZOMBIE", 1, 1, 2, "An undead zombie" ),
-    SKELETON( "SKELETON", 2, 2, 1, "An undead" ),
-    SKULLKING( "SKULL KING", 5, 5, 5, "King of the undead" ),
+    OGRE( "Ogre", 4, 4, 4, "An ogre" ),
+    ZOMBIE( "Zombie", 1, 1, 2, "An undead zombie" ),
+    SKELETON( "Skeleton", 2, 2, 1, "An undead" ),
+    SKULLKING( "Skull King", 5, 5, 5, "King of the undead" ),
+
+    //Weapons
+    SWORD( "Sword", 3, 2, 5, "Sword used by the knights of ara" ),
 
     //Empty
     EMPTY( "EMPTY", 0, 0, 0, "Empty" );

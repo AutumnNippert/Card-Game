@@ -81,8 +81,16 @@ public class Board {
         return board;
     }
 
+    public Card getCard( Coordinate coord ) {
+        return board[ coord.y ][ coord.x - 1 ];
+    }
+
     public void placeCard( Card c, Coordinate pos ) {
         board[ pos.y ][ pos.x - 1 ] = c;
+    }
+
+    public void removeCard( Coordinate pos ) {
+        board[ pos.y ][ pos.x - 1 ] = Card.EMPTY;
     }
 
     public boolean cardExists( Coordinate pos ) {

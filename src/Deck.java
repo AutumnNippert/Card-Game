@@ -43,6 +43,12 @@ public enum Deck {
             add( Card.WIZARD );
             add( Card.WIZARD );
         }
+    } ),
+
+    WEAPONS( new ArrayList<>( ) {
+        {
+            add( Card.SWORD );
+        }
     } );
 
 

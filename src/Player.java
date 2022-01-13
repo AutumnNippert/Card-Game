@@ -4,15 +4,23 @@ public class Player {
     private ArrayList< Card > cards = new ArrayList<>( 0 );
     private int playerNumber;
     private int mana;
+    private int health;
+    private Card weapon = Card.EMPTY;
     private Deck deck;
 
-    public Player( int number, Deck deck ) {
+    public Player( int number, Deck deck, int health ) {
         this.playerNumber = number;
         this.deck = deck;
+        this.health = health;
     }
 
     public void giveCard( Card c ) {
         cards.add( c );
+    }
+
+    public Card getRandomCard( ) {
+        int cardIndex = getRandInt( cards.size( ) );
+        return cards.get( cardIndex );
     }
 
     public void drawCardFromDeck( ) {
@@ -42,6 +50,18 @@ public class Player {
 
     public void setMana( int mana ) {
         this.mana = mana;
+    }
+
+    public void decreaseMana( int decrement ) {
+        this.mana -= decrement;
+    }
+
+    public Card getWeapon( ) {
+        return weapon;
+    }
+
+    public void setWeapon( Card weapon ) {
+        this.weapon = weapon;
     }
 
     public String displayCards( ) {
@@ -82,7 +102,36 @@ public class Player {
         System.out.println( "Card: " + c.getName( ) + " played at position: " + pos.x );
     }
 
+    public int getHealth( ) {
+        return health;
+    }
+
+    public void setHealth( int health ) {
+        this.health = health;
+    }
+
+    public void takeDamage( int damage ) {
+        this.health -= damage;
+    }
+
     public boolean hasCard( Card c ) {
         return cards.contains( c );
+    }
+
+    public boolean isWeapon( Card c ) {
+        return Deck.WEAPONS.getCards( ).contains( c );
+    }
+
+
+    public String diplayPlayer( boolean isEnemy ) {
+        return isEnemy ?
+                "Opponent's Hand\t\tMana: " + Utility.Colors.CYAN + getMana( ) + Utility.Colors.RESET + "\t\tHealth: " + Utility.Colors.RED + getHealth( ) + Utility.Colors.RESET + "\n" +
+                        displayCardBacks( ) + "\n" +
+                        "Weapon:\n" +
+                        weapon.toString( ) :
+                "Weapon: \n" +
+                        weapon.toString( ) +
+                        "\nYour Hand\t\tMana: " + Utility.Colors.CYAN + getMana( ) + Utility.Colors.RESET + "\t\tHealth: " + Utility.Colors.RED + getHealth( ) + Utility.Colors.RESET + "\n" +
+                        displayCards( );
     }
 }
