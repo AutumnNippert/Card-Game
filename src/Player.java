@@ -1,21 +1,21 @@
 import java.util.ArrayList;
 
 public class Player {
-    private ArrayList< Card > cards = new ArrayList<>( 0 );
+    private ArrayList<Card> cards = new ArrayList<>(0);
     private int playerNumber;
     private int mana;
     private int health;
-    private Card weapon = Card.EMPTY;
-    private Deck deck;
+    private Card weapon = new Card();
+    private final ArrayList<Card> deck;
 
-    public Player( int number, Deck deck, int health ) {
+    public Player(int number, ArrayList<Card> deck, int health) {
         this.playerNumber = number;
         this.deck = deck;
         this.health = health;
     }
 
-    public void giveCard( Card c ) {
-        cards.add( c );
+    public void giveCard(Card c) {
+        cards.add(c);
     }
 
     public Card getRandomCard( ) {
@@ -25,11 +25,11 @@ public class Player {
     }
 
     public void drawCardFromDeck( ) {
-        if ( deck.getCards( ).size( ) > 0 ) {
-            int cardIndex = getRandInt( 0, deck.getCards( ).size( ) - 1 );
-            Card c = deck.getCards( ).get( cardIndex );
-            giveCard( c );
-            deck.getCards( ).remove( c );
+        if (deck.size() > 0) {
+            int cardIndex = getRandInt(0, deck.size() - 1);
+            Card c = deck.get(cardIndex);
+            giveCard(c);
+            deck.remove(c);
         }
     }
 
@@ -67,15 +67,15 @@ public class Player {
 
     public String displayCards( ) {
         String[] strs = { "", "", "", "", "" };
-        for ( int i = 0; i < cards.size( ); i++ ) {
+        for (int i = 0; i < cards.size( ); i++ ) {
             final int cardHeight = 5;
-            for ( int j = 0; j < cardHeight; j++ ) {
+            for (int j = 0; j < cardHeight; j++ ) {
                 strs[ j ] += ( cards.get( i ).toString( ).split( "\n" )[ j ] + "\t" );
             }
         }
 
         String str = "";
-        for ( int i = 0; i < strs.length; i++ ) {
+        for (int i = 0; i < strs.length; i++ ) {
             str += strs[ i ] + "\n";
         }
         return str.substring( 0, str.length( ) - 1 );
@@ -83,15 +83,15 @@ public class Player {
 
     public String displayCardBacks( ) {
         String[] strs = { "", "", "", "", "" };
-        for ( int i = 0; i < cards.size( ); i++ ) {
+        for (int i = 0; i < cards.size( ); i++ ) {
             final int cardHeight = 5;
-            for ( int j = 0; j < cardHeight; j++ ) {
+            for (int j = 0; j < cardHeight; j++ ) {
                 strs[ j ] += ( cards.get( i ).back.split( "\n" )[ j ] + "\t" );
             }
         }
 
         String str = "";
-        for ( int i = 0; i < strs.length; i++ ) {
+        for (int i = 0; i < strs.length; i++ ) {
             str += strs[ i ] + "\n";
         }
         return str.substring( 0, str.length( ) - 1 );
@@ -100,8 +100,8 @@ public class Player {
     public void playCard( Board board, Card c, Coordinate pos ) {
         cards.remove( c );
         decreaseMana( c.getMana( ) );
-        board.placeCard( c, pos );
-        System.out.println( "Card: " + c.getName( ) + " played at position: " + pos.x );
+        board.placeCard(c, pos);
+        System.out.println("Card: " + c.getType().getName() + " played at position: " + pos.x);
     }
 
     public int getHealth( ) {
@@ -117,11 +117,16 @@ public class Player {
     }
 
     public boolean hasCard( Card c ) {
-        return cards.contains( c );
+        for (int i = 0; i < cards.size() - 1; i++) {
+            if (cards.get(i).getType().getName().equals(c.getType().getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isWeapon( Card c ) {
-        return Deck.WEAPONS.getCards( ).contains( c );
+        return Deck.WEAPONS.contains(c);
     }
 
 

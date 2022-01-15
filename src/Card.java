@@ -1,25 +1,42 @@
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-public enum Card {
 
-    //Humans
-    KNIGHT( "Knight", 2, 2, 2, "A heroic knight" ),
-    TANK( "Tank", 4, 1, 5, "A large soldier" ),
-    GUNNER( "Gunner", 3, 4, 1, "A gunner" ),
-    WIZARD( "Wizard", 2, 3, 1, "A wizard" ),
 
-    //Undead
-    OGRE( "Ogre", 4, 4, 4, "An ogre" ),
-    ZOMBIE( "Zombie", 1, 1, 2, "An undead zombie" ),
-    SKELETON( "Skeleton", 2, 2, 1, "An undead" ),
-    SKULLKING( "Skull King", 5, 5, 5, "King of the undead" ),
+public class Card {
 
-    //Weapons
-    SWORD( "Sword", 3, 2, 5, "Sword used by the knights of ara" ),
+    public enum CardType {
 
-    //Empty
-    EMPTY( "EMPTY", 0, 0, 0, "Empty" );
+        KNIGHT("Knight", 2, 2, 2, "Knight"),
+        TANK("Tank", 4, 2, 5, "Tank"),
+        GUNNER("Gunner", 2, 4, 2, "Gunner"),
+        WIZARD("Wizard", 1, 2, 1, "Wizard"),
+        OGRE("Ogre", 4, 4, 4, "Ogre"),
+        ZOMBIE("Zombie", 1, 2, 1, "Zombie"),
+        SKELETON("Skeleton", 2, 3, 2, "Skeleton"),
+        SKULLKING("Skull King", 5, 5, 5, "Skull King"),
+        SWORD("Sword", 2, 2, 2, "Sword"),
+        EMPTY("Empty", 0, 0, 0, "Literally nothing");
 
+
+        private final String name;
+        private final int mana;
+        private final int atk;
+        private final int hp;
+        private final String desc;
+
+        private CardType(String name, int mana, int atk, int hp, String desc) {
+            this.name = name;
+            this.mana = mana;
+            this.atk = atk;
+            this.hp = hp;
+            this.desc = desc;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
 
     public String back = String.format( """
             ┌────────────────┐
@@ -28,38 +45,29 @@ public enum Card {
             │                │
             └────────────────┘
             """ );
-    private String name;
+    private CardType type;
     private int mana;
     private int atk;
     private int hp;
     private String desc;
 
-    Card( String name, int mana, int atk, int hp, String desc ) {
-        this.name = name;
-        this.mana = mana;
-        this.atk = atk;
-        this.hp = hp;
-        this.desc = desc;
+    Card( CardType type ) {
+        this.type = type;
+        this.mana = this.type.mana;
+        this.atk = this.type.atk;
+        this.hp = this.type.hp;
     }
 
-    public static Card getCard( String str ) throws NoSuchElementException {
-        for ( Card c : Card.values( ) ) {
-            if ( c.getName( ).equals( str ) ) {
-                return c;
-            }
-        }
-        throw new NoSuchElementException( "No Card found with Name: " + str );
+    Card(){
+        this.type = CardType.EMPTY;
+        this.mana = this.type.mana;
+        this.atk = this.type.atk;
+        this.hp = this.type.hp;
     }
+
+
 
     //Getters / Setters
-    public String getName( ) {
-        return name;
-    }
-
-    public void setName( String name ) {
-        this.name = name;
-    }
-
     public int getAtk( ) {
         return atk;
     }
@@ -80,21 +88,17 @@ public enum Card {
         return mana;
     }
 
-    public void setMana( int mana ) {
-        this.mana = mana;
-    }
-
     public String getDesc( ) {
-        return desc;
+        return this.type.desc;
     }
 
-    public void setDesc( String desc ) {
-        this.desc = desc;
+    public CardType getType() {
+        return type;
     }
 
     @Override
     public String toString( ) {
-        if ( this == Card.EMPTY ) {
+        if ( this.type == CardType.EMPTY ) {
             return String.format(
                     """
                             ┌────────────────┐
@@ -109,13 +113,13 @@ public enum Card {
                             ┌────────────────┐
                             │ %-13s%1s │
                             │                │
-                            │ %-1s%13s │
+                            │ %-1s         %13s │
                             └────────────────┘
                             """,
-                    getName( ),
+                    this.type.name,
                     ( Utility.Colors.CYAN + getMana( ) + Utility.Colors.RESET ),
                     ( Utility.Colors.RED + getAtk( ) + Utility.Colors.RESET ),
-                    getHp( ) );
+                    ( Utility.Colors.GREEN + getHp( ) + Utility.Colors.RESET ) );
         }
     }
 }
