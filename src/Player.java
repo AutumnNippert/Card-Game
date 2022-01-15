@@ -19,21 +19,22 @@ public class Player {
     }
 
     public Card getRandomCard( ) {
-        int cardIndex = getRandInt( cards.size( ) );
+        int cardIndex = getRandInt( 0, cards.size( ) - 1 );
+        System.out.println( cardIndex );
         return cards.get( cardIndex );
     }
 
     public void drawCardFromDeck( ) {
         if ( deck.getCards( ).size( ) > 0 ) {
-            int cardIndex = getRandInt( deck.getCards( ).size( ) );
+            int cardIndex = getRandInt( 0, deck.getCards( ).size( ) - 1 );
             Card c = deck.getCards( ).get( cardIndex );
             giveCard( c );
             deck.getCards( ).remove( c );
         }
     }
 
-    public int getRandInt( int max ) {
-        return ( int ) ( Math.random( ) * max );
+    public int getRandInt( int min, int max ) {
+        return ( int ) ( Math.random( ) * ( ( max - min ) + 1 ) ) + min;
     }
 
     private ArrayList< Card > getCards( ) {
@@ -98,6 +99,7 @@ public class Player {
 
     public void playCard( Board board, Card c, Coordinate pos ) {
         cards.remove( c );
+        decreaseMana( c.getMana( ) );
         board.placeCard( c, pos );
         System.out.println( "Card: " + c.getName( ) + " played at position: " + pos.x );
     }

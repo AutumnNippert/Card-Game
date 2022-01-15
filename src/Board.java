@@ -82,7 +82,7 @@ public class Board {
     }
 
     public Card getCard( Coordinate coord ) {
-        return board[ coord.y ][ coord.x - 1 ];
+        return board[ coord.y ][ coord.x ];
     }
 
     public void placeCard( Card c, Coordinate pos ) {
@@ -90,10 +90,10 @@ public class Board {
     }
 
     public void removeCard( Coordinate pos ) {
-        board[ pos.y ][ pos.x - 1 ] = Card.EMPTY;
+        board[ pos.y ][ pos.x ] = Card.EMPTY;
     }
 
     public boolean cardExists( Coordinate pos ) {
-        return board[ pos.y ][ pos.x - 1 ] != Card.EMPTY;
+        return board[ pos.y ][ pos.x ] != Card.EMPTY;
     }
 }

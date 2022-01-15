@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Utility {
     public static class Colors {
@@ -13,6 +14,7 @@ public class Utility {
         public static final String CYAN = "\u001B[36m";
         public static final String WHITE = "\u001B[37m";
 
+        //BACKGROUND COLORS
         public static final String BLACK_BACKGROUND = "\u001B[40m";
         public static final String RED_BACKGROUND = "\u001B[41m";
         public static final String GREEN_BACKGROUND = "\u001B[42m";
@@ -51,5 +53,57 @@ public class Utility {
             System.out.print( "Press 'Enter' to continue..." );
             scn.nextLine( );
         }
+
+        public static void gameOver( ) {
+            System.out.println( """
+                      _____                         ____                 
+                     / ____|                       / __ \\                
+                    | |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __ 
+                    | | |_ |/ _` | '_ ` _ \\ / _ \\ | |  | \\ \\ / / _ \\ '__|
+                    | |__| | (_| | | | | | |  __/ | |__| |\\ V /  __/ |   
+                     \\_____|\\__,_|_| |_| |_|\\___|  \\____/  \\_/ \\___|_|   
+                                                """
+            );
+        }
     }
+
+    public static class ConsoleFunctions {
+        public static void cls( ) {
+            System.out.print( "\033[H\033[2J" );
+            System.out.flush( );
+        }
+
+        public static void wait( int seconds ) {
+            try {
+                TimeUnit.SECONDS.sleep( seconds );
+            } catch ( Exception ignored ) {
+            }
+        }
+
+        public static void waitForInput( ) {
+            Scanner scn = new Scanner( System.in );
+            System.out.print( "Awaiting Input..." );
+            scn.nextLine( );
+        }
+    }
+
+    public static class Debug {
+        public static void printDebug( boolean isDebug, String str ) {
+            if ( isDebug ) {
+                System.out.println( str );
+            }
+        }
+
+        public static void wait( boolean isDebug, int seconds ) {
+            if ( isDebug ) {
+                try {
+                    TimeUnit.SECONDS.sleep( seconds );
+                } catch ( Exception e ) {
+                    System.out.println( "debug wait failed" );
+                }
+            }
+        }
+    }
+
 }
+

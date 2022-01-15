@@ -1,13 +1,19 @@
-import jdk.jshell.execution.Util;
-
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-    private static int turn = 0;
     private static int mana = 0;
 
-    public static void initGame( ) {
-        boolean isRunning = true;
+    public static void init( ) {
+        boolean debug = true;
+        MusicPlayer musicPlayer = new MusicPlayer( );
+        try {
+            musicPlayer = new MusicPlayer( "Assets\\Music\\Fight(old).wav" );
+            musicPlayer.loop( );
+        } catch ( Exception e ) {
+            System.out.println( "Music not available: " + e.toString( ) );
+            Utility.Debug.wait( debug, 5 );
+        }
 
         Scanner scn = new Scanner( System.in );
 
@@ -31,7 +37,7 @@ public class Game {
         opponent.drawCardFromDeck( );
 
         //Displaying
-        while ( isRunning ) {
+        while ( isPlayerAlive( opponent ) && isPlayerAlive( player ) ) {
             mana++;
             opponent.setMana( mana );
             player.setMana( mana );
@@ -43,18 +49,25 @@ public class Game {
                 boolean isSelecting = true;
                 while ( isSelecting ) {
                     draw( opponent, player, board );
-                    System.out.println( "What is your course of action?" );
-                    System.out.println( "(1) Select Card" );
-                    System.out.println( "(2) Attack" );
-                    System.out.println( "(3) End Turn" );
-                    System.out.print( ">>> " );
+                    Menu gameplayMenu = new Menu( "Gameplay Menu", new ArrayList<>( ) {
+                        {
+                            add( "Select Card" );
+                            add( "Attack" );
+                            add( "End Turn" );
+                        }
+                    } );
+                    gameplayMenu.display( );
                     try {
-                        int input = scn.nextInt( );
-                        scn.nextLine( );
+                        int input = gameplayMenu.getIntValue( );
                         if ( input == 1 ) {
-                            System.out.print( "Select Card >>> " );
+                            Menu selectMenu = new Menu( "Select Card", new ArrayList<>( ) {
+                                {
+                                    add( ">>> " );
+                                }
+                            } );
+                            selectMenu.display( );
                             try {
-                                Card c = Card.getCard( scn.nextLine( ) );
+                                Card c = Card.getCard( selectMenu.getStringValue( ) );
                                 if ( isValidHold( player, c ) ) {
 
                                 } else {
@@ -63,15 +76,21 @@ public class Game {
                                 }
                                 //If player has card, continue
                                 if ( player.hasCard( c ) ) {
-                                    System.out.println( "Which position would you like to put that card? (1-4)" );
-                                    System.out.print( ">>> " );
+//                                    System.out.println( "Which position would you like to put that card? (1-4)" );
+                                    Menu positionMenu = new Menu( "Which position would you like to put that card?", new ArrayList<>( ) {
+                                        {
+                                            add( "" );
+                                            add( "" );
+                                            add( "" );
+                                            add( "" );
+                                        }
+                                    } );
+                                    positionMenu.display( );
                                     try {
-                                        int pos = scn.nextInt( );
-                                        scn.nextLine( );
+                                        int pos = positionMenu.getIntValue( );
                                         Coordinate coord = new Coordinate( pos, 1 );
                                         if ( isValidPlay( player, board, c, coord ) ) {
                                             player.playCard( board, c, coord );
-                                            player.decreaseMana( c.getMana( ) );
                                             isSelecting = false;
                                         } else {
                                             Utility.MessagePrompts.invalidPosition( );
@@ -92,15 +111,15 @@ public class Game {
                             if ( isValidAttack( player ) ) {
                                 System.out.print( "Select Card Position >>> " );
                                 try {
-                                    Coordinate pos = new Coordinate( scn.nextInt( ), 1 );
+                                    Coordinate pos = new Coordinate( scn.nextInt( ) - 1, 1 );
                                     scn.nextLine( );
-                                    Card selected = board.getCard( pos );
+                                    //Card selected = board.getCard( pos );
                                     if ( isValidCardSelect( board, pos ) ) {
                                         System.out.print( "Select Card Position to Attack >>> " );
                                         try {
-                                            Coordinate atkPos = new Coordinate( scn.nextInt( ), 0 );
+                                            Coordinate atkPos = new Coordinate( scn.nextInt( ) - 1, 0 );
                                             scn.nextLine( );
-                                            attack( opponent, board, pos, atkPos );
+                                            attack( player, opponent, board, pos, atkPos );
 
 //                                        if ( isValidAttack(opponent, board, pos, atkPos ) ) {
 //                                        } else {
@@ -139,24 +158,69 @@ public class Game {
                     }
                 }
             }
-            //OPPONENT PLAYING CARD
-            boolean isOpponentDone = false;
-            while ( !isOpponentDone ) {
-                Coordinate placement = new Coordinate( opponent.getRandInt( 5 ), 0 );
-                Card c = opponent.getRandomCard( );
-                if ( isValidHold( opponent, c ) && isValidPlay( opponent, board, c, placement ) && !board.cardExists( placement ) && isValidAttack( opponent ) ) {
-                    opponent.playCard( board, opponent.getRandomCard( ), placement );
-                    opponent.decreaseMana( 1 );
-                    isOpponentDone = true;
+            //OPPONENT TURN
+            int tries = 0;
+            if ( ( opponent.getMana( ) > ( mana / 2 ) ) && !boardFull( true, board ) ) {
+                while ( ( opponent.getMana( ) > ( mana / 2 ) ) && !boardFull( true, board ) && tries < 10 ) {
+                    //OPPONENT PLAYING CARD
+                    Coordinate placement = new Coordinate( opponent.getRandInt( 0, 3 ), 0 );
+                    Card c = opponent.getRandomCard( );
+                    if ( isValidHold( opponent, c ) && isValidPlay( opponent, board, c, placement ) ) {
+                        opponent.playCard( board, opponent.getRandomCard( ), placement );
+                        draw( opponent, player, board );
+                        Utility.Debug.printDebug( debug, "Played a card" );
+                        Utility.ConsoleFunctions.wait( 3 );
+                    } else {
+                        Utility.Debug.printDebug( debug, "In the while loop" );
+                        tries++;
+                    }
                 }
-                if ( boardFull( true, board ) ) {
-                    isOpponentDone = true;
-                }
+
+            } else {
+                Utility.Debug.printDebug( debug, "Didn't play a card" );
+                Utility.ConsoleFunctions.wait( 3 );
             }
+            if ( tries >= 10 ) {
+                Utility.Debug.printDebug( debug, "Didn't play a card" );
+                Utility.ConsoleFunctions.wait( 3 );
+            }
+
+            while ( opponent.getMana( ) > 0 ) {
+                //OPPONENT ATTACKING
+                Coordinate selectedCard = new Coordinate( opponent.getRandInt( 0, 3 ), 0 );
+                Coordinate coordinateAttacking = new Coordinate( opponent.getRandInt( 0, 3 ), 1 );
+                if ( isValidAttack( opponent ) ) {
+                    attack( opponent, player, board, selectedCard, coordinateAttacking );
+                    draw( opponent, player, board );
+                    Utility.Debug.printDebug( debug, "Attacked" );
+                    Utility.ConsoleFunctions.wait( 3 );
+                }
+                Utility.Debug.printDebug( debug, "Didn't attack" );
+                Utility.ConsoleFunctions.wait( 3 );
+
+            }
+
+
+            //LOOP TO TOP
+        }
+
+        //Game Over
+        draw( opponent, player, board );
+        Utility.MessagePrompts.gameOver( );
+        musicPlayer.close( );
+        //play music according to scenario
+        if ( player.getHealth( ) <= 0 ) {
+            System.out.println( "You Lost! :(" );
+        } else if ( opponent.getHealth( ) <= 0 ) {
+            System.out.println( "You Win!!!" );
+        } else {
+            System.out.println( "You Tied (Somehow)!" );
         }
 
 
         scn.nextLine( );
+
+
     }
 
     public static boolean boardFull( boolean isEnemy, Board board ) {
@@ -177,7 +241,7 @@ public class Game {
     }
 
     public static void draw( Player p1, Player p2, Board board ) {
-        cls( );
+        Utility.ConsoleFunctions.cls( );
         // Line for displaying the back of the cards instead of the front
         // System.out.println( "Opponent's Hand\n" + p1.displayCardBacks( ) + "\n" );
         System.out.println( p1.diplayPlayer( true ) );
@@ -191,7 +255,7 @@ public class Game {
                 && !board.cardExists( pos );
     }
 
-    public static void attack( Player p2, Board board, Coordinate card1pos, Coordinate card2Pos ) {
+    public static void attack( Player p1, Player p2, Board board, Coordinate card1pos, Coordinate card2Pos ) {
         //If the card exists, attack the card
         if ( board.cardExists( card2Pos ) ) {
             Card c1 = board.getCard( card1pos );
@@ -221,7 +285,7 @@ public class Game {
                 c1.setHp( c1.getHp( ) - c2.getAtk( ) );
             }
         }
-
+        p1.decreaseMana( 1 );
     }
 
     public static boolean isValidCardSelect( Board board, Coordinate selectedPos ) {
@@ -244,12 +308,8 @@ public class Game {
                 && p.hasCard( c );
     }
 
-    /***
-     * Clears Screen of the console
-     */
-    public static void cls( ) {
-        System.out.print( "\033[H\033[2J" );
-        System.out.flush( );
+    public static boolean isPlayerAlive( Player p ) {
+        return p.getHealth( ) > 0;
     }
 
     //Attack will be if the card selected to attack attacks an empty spot, the enemy will lose health
