@@ -340,11 +340,14 @@ public class Game {
 
     private static void removeIfDead(Board board, Coordinate card1pos, Card c) {
         if (c.getHp() <= 0) {
+            c.setHp(Deck.allCards.getCards().get(Utility.ArrayHelper.getIndex(Deck.allCards.getCards(), c)).getType().getInitialHp());
             board.removeCard(card1pos);
+            System.out.println("Card: " + c.getType().getName() + " died");
+            Utility.ConsoleFunctions.wait(2000);
+        } else {
+            System.out.println("Card: " + c.getType().getName() + " didn't die");
+            Utility.ConsoleFunctions.wait(1000);
         }
-        System.out.println(Deck.allCards.getCards().get(Utility.ArrayHelper.getIndex(Deck.allCards.getCards(), c)).getHp());
-        c.setHp(Deck.allCards.getCards().get(Utility.ArrayHelper.getIndex(Deck.allCards.getCards(), c)).getHp());
-        Utility.ConsoleFunctions.wait(5000);
     }
 
     public static boolean isValidCardSelect(Board board, Coordinate selectedPos) {

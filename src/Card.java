@@ -36,6 +36,10 @@ public class Card {
         public String getName() {
             return name;
         }
+
+        public int getInitialHp() {
+            return hp;
+        }
     }
 
     public String back = """
