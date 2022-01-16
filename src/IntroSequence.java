@@ -11,7 +11,7 @@ public class IntroSequence {
                                 
                                 
                 """ );
-        Utility.ConsoleFunctions.wait( 2 );
+        Utility.ConsoleFunctions.wait( 4000 );
         Utility.ConsoleFunctions.cls( );
         System.out.println( """
                                 
@@ -23,7 +23,7 @@ public class IntroSequence {
                                 
                                 
                 """ );
-        Utility.ConsoleFunctions.wait( 2 );
+        Utility.ConsoleFunctions.wait( 2000 );
         MainMenu.init( );
     }
 }

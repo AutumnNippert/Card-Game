@@ -8,7 +8,7 @@ public class MainMenu {
             musicPlayer.loop( );
         } catch ( Exception e ) {
             System.out.println( "Failed to play music\n" + e.toString( ) );
-            Utility.ConsoleFunctions.wait( 5 );
+            Utility.ConsoleFunctions.wait( 5000 );
         }
         Menu mainMenu = new Menu( "Main Menu", new ArrayList<>( ) {
             {

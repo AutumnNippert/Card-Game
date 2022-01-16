@@ -6,9 +6,9 @@ public class Player {
     private int mana;
     private int health;
     private Card weapon = new Card();
-    private final ArrayList<Card> deck;
+    private final Deck deck;
 
-    public Player(int number, ArrayList<Card> deck, int health) {
+    public Player(int number, Deck deck, int health) {
         this.playerNumber = number;
         this.deck = deck;
         this.health = health;
@@ -16,6 +16,8 @@ public class Player {
 
     public void giveCard(Card c) {
         cards.add(c);
+        System.out.println("Giving card");
+        Utility.ConsoleFunctions.wait(300);
     }
 
     public Card getRandomCard( ) {
@@ -25,11 +27,11 @@ public class Player {
     }
 
     public void drawCardFromDeck( ) {
-        if (deck.size() > 0) {
-            int cardIndex = getRandInt(0, deck.size() - 1);
-            Card c = deck.get(cardIndex);
+        if (deck.getCards().size() > 0) {
+            int cardIndex = getRandInt(0, deck.getCards().size() - 1);
+            Card c = deck.getCards().get(cardIndex);
             giveCard(c);
-            deck.remove(c);
+            deck.getCards().remove(c);
         }
     }
 
@@ -67,16 +69,16 @@ public class Player {
 
     public String displayCards( ) {
         String[] strs = { "", "", "", "", "" };
-        for (int i = 0; i < cards.size( ); i++ ) {
+        for (Card card : cards) {
             final int cardHeight = 5;
-            for (int j = 0; j < cardHeight; j++ ) {
-                strs[ j ] += ( cards.get( i ).toString( ).split( "\n" )[ j ] + "\t" );
+            for (int j = 0; j < cardHeight; j++) {
+                strs[j] += (card.toString().split("\n")[j] + "\t");
             }
         }
 
         String str = "";
-        for (int i = 0; i < strs.length; i++ ) {
-            str += strs[ i ] + "\n";
+        for (String s : strs) {
+            str += s + "\n";
         }
         return str.substring( 0, str.length( ) - 1 );
     }
@@ -91,17 +93,19 @@ public class Player {
         }
 
         String str = "";
-        for (int i = 0; i < strs.length; i++ ) {
-            str += strs[ i ] + "\n";
+        for (String s : strs) {
+            str += s + "\n";
         }
         return str.substring( 0, str.length( ) - 1 );
     }
 
     public void playCard( Board board, Card c, Coordinate pos ) {
-        cards.remove( c );
-        decreaseMana( c.getMana( ) );
+        //I hate this but doing cards.remove(c); doesn't work
+        Utility.ArrayHelper.remove(cards, c);
+        decreaseMana(c.getMana());
         board.placeCard(c, pos);
-        System.out.println("Card: " + c.getType().getName() + " played at position: " + pos.x);
+        System.out.println("Card: " + c.getType().getName() + " played at position: " + (pos.x + 1));
+        Utility.ConsoleFunctions.wait(1000);
     }
 
     public int getHealth( ) {
@@ -116,6 +120,7 @@ public class Player {
         this.health -= damage;
     }
 
+    //returning false when shouldn't be
     public boolean hasCard( Card c ) {
         for (int i = 0; i < cards.size() - 1; i++) {
             if (cards.get(i).getType().getName().equals(c.getType().getName())) {
@@ -126,11 +131,11 @@ public class Player {
     }
 
     public boolean isWeapon( Card c ) {
-        return Deck.WEAPONS.contains(c);
+        return Deck.WEAPONS.getCards().contains(c);
     }
 
 
-    public String diplayPlayer( boolean isEnemy ) {
+    public String displayPlayer( boolean isEnemy ) {
         return isEnemy ?
                 "Opponent's Hand\t\tMana: " + Utility.Colors.CYAN + getMana( ) + Utility.Colors.RESET + "\t\tHealth: " + Utility.Colors.RED + getHealth( ) + Utility.Colors.RESET + "\n" +
                         displayCardBacks( ) + "\n" +

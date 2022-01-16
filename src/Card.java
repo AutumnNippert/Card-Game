@@ -38,13 +38,13 @@ public class Card {
         }
     }
 
-    public String back = String.format( """
+    public String back = """
             ┌────────────────┐
             │                │
             │                │
             │                │
             └────────────────┘
-            """ );
+            """;
     private CardType type;
     private int mana;
     private int atk;
@@ -99,14 +99,13 @@ public class Card {
     @Override
     public String toString( ) {
         if ( this.type == CardType.EMPTY ) {
-            return String.format(
-                    """
-                            ┌────────────────┐
-                            │                │
-                            │      EMPTY     │
-                            │                │
-                            └────────────────┘
-                            """ );
+            return """
+                    ┌────────────────┐
+                    │                │
+                    │      EMPTY     │
+                    │                │
+                    └────────────────┘
+                    """;
         } else {
             return String.format(
                     """

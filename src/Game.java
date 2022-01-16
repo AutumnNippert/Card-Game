@@ -25,7 +25,7 @@ public class Game {
             musicPlayer.loop();
         } catch (Exception e) {
             System.out.println("Music not available: " + e.toString());
-            Utility.Debug.wait(debug, 5);
+            Utility.Debug.wait(debug, 5000);
         }
 
         Scanner scn = new Scanner(System.in);
@@ -98,11 +98,15 @@ public class Game {
                                             add("");
                                             add("");
                                             add("");
+                                            add("Weapon Slot");
                                         }
                                     });
                                     positionMenu.display();
                                     try {
                                         int pos = positionMenu.getIntValue() - 1;
+                                        if(pos == 4) {
+
+                                        }
                                         Coordinate coord = new Coordinate(pos, 1);
                                         if (isValidPlay(player, board, c, coord)) {
                                             player.playCard(board, c, coord);
@@ -185,7 +189,7 @@ public class Game {
                         draw(opponent, player, board);
 
                         Utility.Debug.printDebug(debug, "Played a card");
-                        Utility.ConsoleFunctions.wait(3);
+                        Utility.ConsoleFunctions.wait(1000);
                     } else {
                         Utility.Debug.printDebug(debug, "In the while loop");
                         tries++;
@@ -194,14 +198,14 @@ public class Game {
 
             } else {
                 Utility.Debug.printDebug(debug, "Didn't play a card");
-                Utility.ConsoleFunctions.wait(3);
+                Utility.ConsoleFunctions.wait(1000);
             }
             if (tries >= 10) {
                 Utility.Debug.printDebug(debug, "Didn't play a card");
-                Utility.ConsoleFunctions.wait(3);
+                Utility.ConsoleFunctions.wait(1000);
             }
 
-            while (opponent.getMana() > 0) {
+            while (opponent.getMana() > 0 && !boardEmpty(true, board)) {
                 //OPPONENT ATTACKING
                 Coordinate selectedCard = findRandomCardOnBoard(true, board);
                 Coordinate coordinateAttacking = new Coordinate(opponent.getRandInt(0, 3), 1);
@@ -209,10 +213,10 @@ public class Game {
                     attack(opponent, player, board, selectedCard, coordinateAttacking);
                     draw(opponent, player, board);
                     Utility.Debug.printDebug(debug, "Attacked");
-                    Utility.ConsoleFunctions.wait(3);
+                    Utility.ConsoleFunctions.wait(3000);
                 }
                 Utility.Debug.printDebug(debug, "Didn't attack");
-                Utility.ConsoleFunctions.wait(3);
+                Utility.ConsoleFunctions.wait(3000);
 
             }
 
@@ -241,24 +245,20 @@ public class Game {
 
     //Create findRandomCardOnBoard() so that the AI doesn't attack me with an empty card
     public static Coordinate findRandomCardOnBoard(boolean isEnemy /*y = 1 or 0*/, Board board) {
-        //posCard is the positino of the card with the most attack stat
+        //posCard is the position of the card with the most attack stat
         Coordinate posCard = isEnemy ? new Coordinate(0, 0) : new Coordinate(0, 1);
         for (int i = 0; i < board.getCards()[0].length - 1; i++) {
+            Coordinate newCoord;
             if (isEnemy) {
                 //set y to 0
-                Coordinate newCoord = new Coordinate(i, 0);
-                if (board.cardExists(newCoord)) {
-                    if (board.getCard(posCard).getAtk() < board.getCard(newCoord).getAtk()){
-                        posCard = newCoord;
-                    }
-                }
+                newCoord = new Coordinate(i, 0);
             } else {
                 //set y to 1
-                Coordinate newCoord = new Coordinate(i, 1);
-                if (board.cardExists(newCoord)) {
-                    if (board.getCard(posCard).getAtk() < board.getCard(newCoord).getAtk()){
-                        posCard = newCoord;
-                    }
+                newCoord = new Coordinate(i, 1);
+            }
+            if (board.cardExists(newCoord)) {
+                if (board.getCard(posCard).getAtk() < board.getCard(newCoord).getAtk()){
+                    posCard = newCoord;
                 }
             }
         }
@@ -282,18 +282,35 @@ public class Game {
         return true;
     }
 
+    public static boolean boardEmpty(boolean isEnemy, Board board) {
+        if (isEnemy) {
+            for (int i = 1; i < board.getCards()[0].length; i++) {
+                if (board.cardExists(new Coordinate(i, 0))) {
+                    return false;
+                }
+            }
+        } else {
+            for (int i = 1; i < board.getCards()[1].length; i++) {
+                if (board.cardExists(new Coordinate(i, 1))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public static void draw(Player p1, Player p2, Board board) {
         Utility.ConsoleFunctions.cls();
         // Line for displaying the back of the cards instead of the front
         // System.out.println( "Opponent's Hand\n" + p1.displayCardBacks( ) + "\n" );
-        System.out.println(p1.diplayPlayer(true));
+        System.out.println(p1.displayPlayer(true));
         System.out.println(board.displayBoard());
-        System.out.println(p2.diplayPlayer(false));
+        System.out.println(p2.displayPlayer(false));
     }
 
     public static boolean isValidPlay(Player p, Board board, Card c, Coordinate pos) {
-        return pos.x >= 1
-                && pos.x <= 4
+        return pos.x >= 0
+                && pos.x <= 3
                 && !board.cardExists(pos);
     }
 
@@ -304,16 +321,8 @@ public class Game {
             Card c2 = board.getCard(card2Pos);
             c2.setHp(c2.getHp() - c1.getAtk());
             c1.setHp(c1.getHp() - c2.getAtk());
-            if (c1.getHp() <= 0) {
-                board.removeCard(card1pos);
-            } else {
-                c1.setHp(Deck.getCard(c1.getType().getName()).getHp());
-            }
-            if (c2.getHp() <= 0) {
-                board.removeCard(card2Pos);
-            } else {
-                c2.setHp(Deck.getCard(c2.getType().getName()).getHp());
-            }
+            removeIfDead(board, card1pos, c1);//This doesn't work
+            removeIfDead(board, card2Pos, c2);//This does work
         }
         //If the card doesn't exist, attack the player
         else {
@@ -327,6 +336,15 @@ public class Game {
             }
         }
         p1.decreaseMana(1);
+    }
+
+    private static void removeIfDead(Board board, Coordinate card1pos, Card c) {
+        if (c.getHp() <= 0) {
+            board.removeCard(card1pos);
+        }
+        System.out.println(Deck.allCards.getCards().get(Utility.ArrayHelper.getIndex(Deck.allCards.getCards(), c)).getHp());
+        c.setHp(Deck.allCards.getCards().get(Utility.ArrayHelper.getIndex(Deck.allCards.getCards(), c)).getHp());
+        Utility.ConsoleFunctions.wait(5000);
     }
 
     public static boolean isValidCardSelect(Board board, Coordinate selectedPos) {

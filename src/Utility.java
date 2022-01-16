@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -70,22 +69,23 @@ public class Utility {
     }
 
     public static class ConsoleFunctions {
-        public static void cls( ) {
-            System.out.print( "\033[H\033[2J" );
-            System.out.flush( );
+        public static void cls() {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
         }
 
-        public static void wait( int seconds ) {
+        public static void wait(int milliseconds) {
             try {
-                TimeUnit.SECONDS.sleep( seconds );
-            } catch ( Exception ignored ) {
+                TimeUnit.MILLISECONDS.sleep(milliseconds);
+            } catch (Exception e) {
+                System.out.println("wait failed");
             }
         }
 
-        public static void waitForInput( ) {
-            Scanner scn = new Scanner( System.in );
-            System.out.print( "Awaiting Input..." );
-            scn.nextLine( );
+        public static void waitForInput() {
+            Scanner scn = new Scanner(System.in);
+            System.out.print("Awaiting Input...");
+            scn.nextLine();
         }
     }
 
@@ -96,15 +96,47 @@ public class Utility {
             }
         }
 
-        public static void wait( boolean isDebug, int seconds ) {
-            if ( isDebug ) {
+        public static void wait(boolean isDebug, int milliseconds) {
+            if (isDebug) {
                 try {
-                    TimeUnit.SECONDS.sleep( seconds );
-                } catch ( Exception e ) {
-                    System.out.println( "debug wait failed" );
+                    TimeUnit.MILLISECONDS.sleep(milliseconds);
+                } catch (Exception e) {
+                    System.out.println("debug wait failed");
                 }
             }
         }
     }
+
+    public static class ArrayHelper {
+        public static boolean contains(ArrayList<Card> cards, Card c) {
+            //I hate this but doing cards.contains(c); doesn't work
+            for (Card card : cards) {
+                if (c.getType().getName().equals(card.getType().getName())) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static void remove(ArrayList<Card> cards, Card c) {
+            //I also hate this but doing cards.remove(c); doesn't work
+            for (Card card : cards) {
+                if (c.getType().getName().equals(card.getType().getName())) {
+                    cards.remove(card);
+                    break;
+                }
+            }
+        }
+
+        public static int getIndex(ArrayList<Card> cards, Card c) {
+            for (int i = 0; i < cards.size() - 1; i++) {
+                if (c.getType().getName().equals(cards.get(i).getType().getName())) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+    }
+
 }
 
