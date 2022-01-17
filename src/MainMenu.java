@@ -33,12 +33,13 @@ public class MainMenu {
                     Game.init( );
                 } else if ( i == 2 ) {
                     //lore page
+                    Lore.init();
                 } else if ( i == 3 ) {
                     //exit
                     System.exit( 0 );
                 }
             } catch ( Exception e ) {
-                System.out.println( "Im at the main menu again?" );
+                System.out.println( "An error has occurred. Returning to the main menu." );
                 e.printStackTrace( );
                 Utility.ConsoleFunctions.waitForInput( );
             }

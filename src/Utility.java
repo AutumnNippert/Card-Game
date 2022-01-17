@@ -84,7 +84,7 @@ public class Utility {
 
         public static void waitForInput() {
             Scanner scn = new Scanner(System.in);
-            System.out.print("Awaiting Input...");
+            System.out.print( "Press 'Enter' to continue..." );
             scn.nextLine();
         }
     }
