@@ -86,14 +86,14 @@ public class Board {
     }
 
     public void placeCard( Card c, Coordinate pos ) {
-        board[ pos.y ][ pos.x - 1 ] = c;
+        board[ pos.y ][ pos.x ] = c;
     }
 
     public void removeCard( Coordinate pos ) {
-        board[ pos.y ][ pos.x ] = Card.EMPTY;
+        board[ pos.y ][ pos.x ] = new Card(Card.CardType.EMPTY);
     }
 
     public boolean cardExists( Coordinate pos ) {
-        return board[ pos.y ][ pos.x ] != Card.EMPTY;
+        return board[ pos.y ][ pos.x ].getType() != Card.CardType.EMPTY;
     }
 }
