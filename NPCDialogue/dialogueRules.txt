@@ -1,0 +1,27 @@
+RULES:
+    @ will be before any lines of markup
+    Every time it sees an @, it waits until the user has clicked enter
+    _ will be pause, which causes a [amount of ms] pause each
+
+    Properties:
+        name=[String name]
+        goto=[String nameOfThingToGoTo]
+        Modifiers:
+            :flag=[Boolean if_True_Continue_Else_goto]
+
+EXAMPLE:
+@name="start"
+Hello my name is TRASH. _Pretty cool right?
+@name="1"
+Want to go to eat?
+@name="1.1" //if yes
+yay!
+@name="1.2" //if no
+Darn... maybe some other time.
+@goto="1"
+@name="eating"
+Eating is cool.
+@goto="eating":flag="isDonEating"
+@name="doneEating"
+Im done eating.
+@goto="doneEating"

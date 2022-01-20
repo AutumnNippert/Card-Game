@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="444.0">com</node>
+    <node x="197.0" y="222.0">images</node>
+    <node x="0.0" y="222.0">netscape</node>
+    <node x="167.0" y="444.0">junit</node>
+    <node x="0.0" y="518.0">org</node>
+    <node x="360.0" y="296.0">utility</node>
+    <node x="298.0" y="0.0">toolbarButtonGraphics</node>
+    <node x="161.0" y="518.0">sun</node>
+    <node x="245.0" y="148.0">META-INF</node>
+    <node x="321.0" y="518.0">jdk</node>
+    <node x="0.0" y="148.0">groovyjarjarasm</node>
+    <node x="334.0" y="444.0">java</node>
+    <node x="0.0" y="296.0">groovy</node>
+    <node x="383.0" y="222.0">screens</node>
+    <node x="175.0" y="370.0">javax</node>
+    <node x="184.0" y="296.0">Music</node>
+    <node x="0.0" y="74.0">groovyjarjarpicocli</node>
+    <node x="0.0" y="0.0">groovyjarjarcommonscli</node>
+    <node x="347.0" y="370.0">logic</node>
+    <node x="262.0" y="74.0">groovyjarjarantlr</node>
+    <node x="479.0" y="518.0">Main</node>
+    <node x="0.0" y="370.0">Cards</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Balloons" zoom="1.0" showDependencies="false" x="280.5" y="273.5" />
+  <SelectedNodes>
+    <node>META-INF</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,4 +1,4 @@
-# Card-Game
+# logic.Card-screens.Game
 
 A card game with a console based UI. Debug is enabled with the most current update.
 
