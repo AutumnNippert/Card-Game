@@ -32,7 +32,7 @@ public class MainMenu
                 int i = mainMenu.getIntValue();
                 if (i == 1)
                 {
-                    Game.init();
+                    Match.init();
                 }
                 else if (i == 2)
                 {

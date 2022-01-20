@@ -1,46 +1,29 @@
-import javax.sound.sampled.*;
-import java.io.File;
-import java.io.IOException;
-
-public class MusicPlayer {
-    Clip clip;
-    AudioInputStream audioStream;
+using System.Media;
+public class MusicPlayer
+{
 
     // constructor to initialize streams and clip
-    public MusicPlayer( String filePath )
-            throws UnsupportedAudioFileException,
-            IOException, LineUnavailableException {
+    SoundPlayer player;
+    public MusicPlayer(string filePath)
+    {
+        player = new SoundPlayer();
+        player.SoundLocation = filePath;
+    }
+    public MusicPlayer() { }
 
 
-        File audioFile = new File( filePath );
-
-        audioStream = AudioSystem.getAudioInputStream( audioFile );
-        AudioFormat format = audioStream.getFormat( );
-
-        DataLine.Info info = new DataLine.Info( Clip.class, format );
-        clip = ( Clip ) AudioSystem.getLine( info );
-        clip.open( audioStream );
-        clip.start( );
+    public void play()
+    {
+        player.Play();
     }
 
-    public MusicPlayer( ) {
-
+    public void loop()
+    {
+        player.PlayLooping();
     }
 
-    public void play( ) {
-        clip.start( );
-    }
-
-    public void loop( ) {
-        clip.loop( Clip.LOOP_CONTINUOUSLY );
-    }
-
-    public void close( ) {
-        try {
-            clip.close( );
-            audioStream.close( );
-        } catch ( Exception e ) {
-            e.printStackTrace( );
-        }
+    public void close()
+    {
+        player.Stop();
     }
 }

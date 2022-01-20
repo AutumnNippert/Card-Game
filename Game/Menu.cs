@@ -21,7 +21,7 @@ public class Menu {
     }
 
     public int getIntValue( ) {
-            return int.Parse( value );
+        return int.Parse( value );
     }
 
     public String getStringValue( ) {

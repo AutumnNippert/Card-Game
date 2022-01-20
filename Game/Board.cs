@@ -97,6 +97,6 @@ public class Board {
 
     }
     public bool cardExists( Coordinate pos ) {
-        return board[ pos.y ][ pos.x ].getType() != CardType.EMPTY;
+        return board[ pos.y ][ pos.x ].type != CardType.EMPTY;
     }
 }
