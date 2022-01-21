@@ -8,4 +8,4 @@ Create a `".jar"` in `"out/artifacts/Card_Game"`. In that directory in command p
 
 Have fun!
 
-This is a test change
+Test Commit
