@@ -1,11 +1,14 @@
 using System;
+using System.Text.Json;
+using System.IO;
 
 public enum CardType
 {
-    KNIGHT, TANK, GUNNER, WIZARD, OGRE, ZOMBIE, SKELETON, SKULLKING, SWORD, EMPTY
+    EMPTY, KNIGHT, HUNTER, WIZARD, TANK, PEASANT, PLAGUEBEING, DRUNKARD, SODODFATLAS, SHATTEREDSWORD, STRAIGHTSWORD
 }
-
-public class Card {
+[Serializable]
+public class Card
+{
 
     //KNIGHT("Knight", 2, 2, 2, "Knight"),
     //    TANK("Tank", 4, 2, 5, "Tank"),
@@ -18,65 +21,75 @@ public class Card {
     //    SWORD("Sword", 2, 2, 2, "Sword"),
     //    EMPTY("Empty", 0, 0, 0, "Literally nothing");
 
-    public String back = @"
-            ┌────────────────┐
-            │                │
-            │                │
-            │                │
-            └────────────────┘
-            ";
-    public String name { get; set; }
-    public CardType type { get; set; }
+    public string back = 
+@"┌────────────────┐
+│                │
+│                │
+│                │
+└────────────────┘";
+    public string name { get; set; }
+    public CardType ID { get; set; }
     public int mana { get; set; }
     public int atk { get; set; }
     public int hp { get; set; }
-    public String desc { get; set; }
+    public string desc { get; set; }
 
-    public Card(){
+    public Card()
+    {
         this.name = "Empty";
-        this.type = CardType.EMPTY;
+        this.ID = CardType.EMPTY;
         this.mana = 0;
         this.atk = 0;
         this.hp = 0;
     }
 
-    public Card(string back, CardType type, int mana, int atk, int hp, string desc)
+    public Card(string name, CardType ID, int mana, int atk, int hp, string desc)
     {
-        this.back = back ?? throw new ArgumentNullException(nameof(back));
-        this.type = type;
+        this.name = name;
+        this.ID = ID;
         this.mana = mana;
         this.atk = atk;
         this.hp = hp;
         this.desc = desc ?? throw new ArgumentNullException(nameof(desc));
     }
 
-    public Card( CardType type)
+    public Card(CardType type)
     {
-        this.type = type;
+        this.ID = type;
     }
 
-    public String toString( ) {
-        if ( this.type == CardType.EMPTY ) {
-            return @"
-                    ┌────────────────┐
-                    │                │
-                    │      EMPTY     │
-                    │                │
-                    └────────────────┘
-                    @";
-        } else {
-            return String.Format(
-                    @"
-                            ┌────────────────┐
-                            │ %-13s%1s │
-                            │                │
-                            │ %-1s         %13s │
-                            └────────────────┘
-                            ",
+    //public static void serializeCards()
+    //{
+    //    string jsonCard = JsonSerializer.Serialize(new Card("Knight", CardType.KNIGHT, 2, 2, 2, "Knight"));
+    //    string directory = "assets";
+    //    Directory.CreateDirectory(directory);
+
+    //    File.WriteAllText(directory + "/cardDeck.json", jsonCard);
+    //}
+
+    public string toString()
+    {
+        if (this.ID == CardType.EMPTY)
+        {
+            return 
+@"┌────────────────┐
+│                │
+│      EMPTY     │
+│                │
+└────────────────┘";
+        }
+        else
+        {
+            return string.Format(
+@"┌────────────────┐
+│ {0,-13}{1,1} │
+│                │
+│ {2,-13}         {3,1} │
+└────────────────┘",
                     this.name,
-                    ( Utility.Colors.CYAN + this.mana + Utility.Colors.RESET ),
-                    ( Utility.Colors.RED + this.atk + Utility.Colors.RESET ),
-                    ( Utility.Colors.GREEN + this.hp + Utility.Colors.RESET ) );
+                    (Utility.Colors.CYAN + this.mana + Utility.Colors.RESET),
+                    (Utility.Colors.RED + this.atk + Utility.Colors.RESET),
+                    (Utility.Colors.GREEN + this.hp + Utility.Colors.RESET));
         }
     }
 }

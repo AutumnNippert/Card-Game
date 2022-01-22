@@ -1,7 +1,8 @@
 using System;
 
 public class IntroSequence {
-    public static void init( ) {
+    public IntroSequence() { }
+    public void init( ) {
         Utility.ConsoleFunctions.cls( );
         Console.WriteLine( @"
                                 
@@ -26,6 +27,5 @@ public class IntroSequence {
                                 
                 " );
         Utility.ConsoleFunctions.wait( 2000 );
-        MainMenu.init( );
     }
 }

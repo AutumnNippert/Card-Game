@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 
 public class Menu {
-    public String value;
-    public String name;
-    public List<String> options;
+    public string value;
+    public string name;
+    public List<string> options;
 
-    public Menu( String name, List< String > options ) {
+    public Menu( string name, List< string > options ) {
         this.name = name;
         this.options = options;
     }
@@ -24,7 +24,7 @@ public class Menu {
         return int.Parse( value );
     }
 
-    public String getStringValue( ) {
+    public string getStringValue( ) {
         return value;
     }
 }

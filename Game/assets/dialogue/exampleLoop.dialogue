@@ -1,0 +1,16 @@
+{0} //start of file
+Hey i need your help.
+{0.1} //
+Can you do this thing for me?
+{1.1} //yes
+Great!
+{1.1loop} //where the loop starts
+These are the directions to this place.
+Come back to me when you do it!
+{loop="1.1Loop":flag="thing to do"} //This will loop from 0 when reactivated and will only continue when flag is true
+{2}
+Woah! you did the thing!
+{loop=2:flag=false} //loops forever
+{1.2} //no
+Aww thats a shame.
+{goto=0.1}

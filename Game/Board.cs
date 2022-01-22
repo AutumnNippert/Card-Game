@@ -8,73 +8,73 @@ public class Board {
         this.board = board;
     }
 
-    public String displayBoard( ) {
-        String boardString = String.Format( @"
-                        ┌─────────────────────────────────────────────────────────────────────────────────────┐
-                        │  %18s   %18s   %18s   %18s  │
-                        │  %18s   %18s   %18s   %18s  │
-                        │  %18s   %18s   %18s   %18s  │
-                        │  %18s   %18s   %18s   %18s  │
-                        │  %18s   %18s   %18s   %18s  │
-                        │                                                                                     │
-                        ├─────────────────────────────────────────────────────────────────────────────────────┤
-                        │                                                                                     │
-                        │  %18s   %18s   %18s   %18s  │
-                        │  %18s   %18s   %18s   %18s  │
-                        │  %18s   %18s   %18s   %18s  │
-                        │  %18s   %18s   %18s   %18s  │
-                        │  %18s   %18s   %18s   %18s  │
-                        └─────────────────────────────────────────────────────────────────────────────────────┘",
-                board[ 0 ][ 0 ].toString( ).Split( "\n" )[ 0 ],
-                board[ 0 ][ 1 ].toString( ).Split( "\n" )[ 0 ],
-                board[ 0 ][ 2 ].toString( ).Split( "\n" )[ 0 ],
-                board[ 0 ][ 3 ].toString( ).Split( "\n" )[ 0 ],
-                board[ 0 ][ 0 ].toString( ).Split( "\n" )[ 1 ],
-                board[ 0 ][ 1 ].toString( ).Split( "\n" )[ 1 ],
-                board[ 0 ][ 2 ].toString( ).Split( "\n" )[ 1 ],
-                board[ 0 ][ 3 ].toString( ).Split( "\n" )[ 1 ],
-                board[ 0 ][ 0 ].toString( ).Split( "\n" )[ 2 ],
-                board[ 0 ][ 1 ].toString( ).Split( "\n" )[ 2 ],
-                board[ 0 ][ 2 ].toString( ).Split( "\n" )[ 2 ],
-                board[ 0 ][ 3 ].toString( ).Split( "\n" )[ 2 ],
-                board[ 0 ][ 0 ].toString( ).Split( "\n" )[ 3 ],
-                board[ 0 ][ 1 ].toString( ).Split( "\n" )[ 3 ],
-                board[ 0 ][ 2 ].toString( ).Split( "\n" )[ 3 ],
-                board[ 0 ][ 3 ].toString( ).Split( "\n" )[ 3 ],
-                board[ 0 ][ 0 ].toString( ).Split( "\n" )[ 4 ],
-                board[ 0 ][ 1 ].toString( ).Split( "\n" )[ 4 ],
-                board[ 0 ][ 2 ].toString( ).Split( "\n" )[ 4 ],
-                board[ 0 ][ 3 ].toString( ).Split( "\n" )[ 4 ],
-                board[ 1 ][ 0 ].toString( ).Split( "\n" )[ 0 ],
-                board[ 1 ][ 1 ].toString( ).Split( "\n" )[ 0 ],
-                board[ 1 ][ 2 ].toString( ).Split( "\n" )[ 0 ],
-                board[ 1 ][ 3 ].toString( ).Split( "\n" )[ 0 ],
-                board[ 1 ][ 0 ].toString( ).Split( "\n" )[ 1 ],
-                board[ 1 ][ 1 ].toString( ).Split( "\n" )[ 1 ],
-                board[ 1 ][ 2 ].toString( ).Split( "\n" )[ 1 ],
-                board[ 1 ][ 3 ].toString( ).Split( "\n" )[ 1 ],
-                board[ 1 ][ 0 ].toString( ).Split( "\n" )[ 2 ],
-                board[ 1 ][ 1 ].toString( ).Split( "\n" )[ 2 ],
-                board[ 1 ][ 2 ].toString( ).Split( "\n" )[ 2 ],
-                board[ 1 ][ 3 ].toString( ).Split( "\n" )[ 2 ],
-                board[ 1 ][ 0 ].toString( ).Split( "\n" )[ 3 ],
-                board[ 1 ][ 1 ].toString( ).Split( "\n" )[ 3 ],
-                board[ 1 ][ 2 ].toString( ).Split( "\n" )[ 3 ],
-                board[ 1 ][ 3 ].toString( ).Split( "\n" )[ 3 ],
-                board[ 1 ][ 0 ].toString( ).Split( "\n" )[ 4 ],
-                board[ 1 ][ 1 ].toString( ).Split( "\n" )[ 4 ],
-                board[ 1 ][ 2 ].toString( ).Split( "\n" )[ 4 ],
-                board[ 1 ][ 3 ].toString( ).Split( "\n" )[ 4 ] );
-        int boardHeight = boardString.Split( "\n" ).Length;
+    public string displayBoard( ) {
+        string boardString = string.Format(
+@"┌─────────────────────────────────────────────────────────────────────────────────────┐
+│  {0,18}   {1,18}   {2,18}   {3,18}  │
+│  {4,18}   {5,18}   {6,18}   {7,18}  │
+│  {8,18}   {9,18}   {10,18}   {11,18}  │
+│  {12,18}   {13,18}   {14,18}   {15,18}  │
+│  {16,18}   {17,18}   {18,18}   {19,18}  │
+│                                                                                     │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                     │
+│  {20,18}   {21,18}   {22,18}   {23,18}  │
+│  {24,18}   {25,18}   {26,18}   {27,18}  │
+│  {28,18}   {29,18}   {30,18}   {31,18}  │
+│  {32,18}   {33,18}   {34,18}   {35,18}  │
+│  {36,18}   {37,18}   {38,18}   {39,18}  │
+└─────────────────────────────────────────────────────────────────────────────────────┘",
+                board[ 0 ][ 0 ].toString( ).Split( "\r\n" )[ 0 ],
+                board[ 0 ][ 1 ].toString( ).Split( "\r\n" )[ 0 ],
+                board[ 0 ][ 2 ].toString( ).Split( "\r\n" )[ 0 ],
+                board[ 0 ][ 3 ].toString( ).Split( "\r\n" )[ 0 ],
+                board[ 0 ][ 0 ].toString( ).Split( "\r\n" )[ 1 ],
+                board[ 0 ][ 1 ].toString( ).Split( "\r\n" )[ 1 ],
+                board[ 0 ][ 2 ].toString( ).Split( "\r\n" )[ 1 ],
+                board[ 0 ][ 3 ].toString( ).Split( "\r\n" )[ 1 ],
+                board[ 0 ][ 0 ].toString( ).Split( "\r\n" )[ 2 ],
+                board[ 0 ][ 1 ].toString( ).Split( "\r\n" )[ 2 ],
+                board[ 0 ][ 2 ].toString( ).Split( "\r\n" )[ 2 ],
+                board[ 0 ][ 3 ].toString( ).Split( "\r\n" )[ 2 ],
+                board[ 0 ][ 0 ].toString( ).Split( "\r\n" )[ 3 ],
+                board[ 0 ][ 1 ].toString( ).Split( "\r\n" )[ 3 ],
+                board[ 0 ][ 2 ].toString( ).Split( "\r\n" )[ 3 ],
+                board[ 0 ][ 3 ].toString( ).Split( "\r\n" )[ 3 ],
+                board[ 0 ][ 0 ].toString( ).Split( "\r\n" )[ 4 ],
+                board[ 0 ][ 1 ].toString( ).Split( "\r\n" )[ 4 ],
+                board[ 0 ][ 2 ].toString( ).Split( "\r\n" )[ 4 ],
+                board[ 0 ][ 3 ].toString( ).Split( "\r\n" )[ 4 ],
+                board[ 1 ][ 0 ].toString( ).Split( "\r\n" )[ 0 ],
+                board[ 1 ][ 1 ].toString( ).Split( "\r\n" )[ 0 ],
+                board[ 1 ][ 2 ].toString( ).Split( "\r\n" )[ 0 ],
+                board[ 1 ][ 3 ].toString( ).Split( "\r\n" )[ 0 ],
+                board[ 1 ][ 0 ].toString( ).Split( "\r\n" )[ 1 ],
+                board[ 1 ][ 1 ].toString( ).Split( "\r\n" )[ 1 ],
+                board[ 1 ][ 2 ].toString( ).Split( "\r\n" )[ 1 ],
+                board[ 1 ][ 3 ].toString( ).Split( "\r\n" )[ 1 ],
+                board[ 1 ][ 0 ].toString( ).Split( "\r\n" )[ 2 ],
+                board[ 1 ][ 1 ].toString( ).Split( "\r\n" )[ 2 ],
+                board[ 1 ][ 2 ].toString( ).Split( "\r\n" )[ 2 ],
+                board[ 1 ][ 3 ].toString( ).Split( "\r\n" )[ 2 ],
+                board[ 1 ][ 0 ].toString( ).Split( "\r\n" )[ 3 ],
+                board[ 1 ][ 1 ].toString( ).Split( "\r\n" )[ 3 ],
+                board[ 1 ][ 2 ].toString( ).Split( "\r\n" )[ 3 ],
+                board[ 1 ][ 3 ].toString( ).Split( "\r\n" )[ 3 ],
+                board[ 1 ][ 0 ].toString( ).Split( "\r\n" )[ 4 ],
+                board[ 1 ][ 1 ].toString( ).Split( "\r\n" )[ 4 ],
+                board[ 1 ][ 2 ].toString( ).Split( "\r\n" )[ 4 ],
+                board[ 1 ][ 3 ].toString( ).Split( "\r\n" )[ 4 ] );
+        int boardHeight = boardString.Split( "\r\n" ).Length;
 
-        String[] strs = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
+        string[] strs = { "", "", "", "", "", "", "", "", "", "", "", "", "", "", "" };
         for ( int i = 0; i < boardHeight; i++ ) {
-            strs[ i ] += ( boardString.Split( "\n" )[ i ] );
+            strs[ i ] += ( boardString.Split( "\r\n" )[ i ] );
         }
 
-        String str = "";
+        string str = "";
         for ( int i = 0; i < strs.Length; i++ ) {
-            str += strs[ i ] + "\n";
+            str += strs[ i ] + "\r\n";
         }
         return str;
     }
@@ -97,6 +97,6 @@ public class Board {
 
     }
     public bool cardExists( Coordinate pos ) {
-        return board[ pos.y ][ pos.x ].type != CardType.EMPTY;
+        return board[ pos.y ][ pos.x ].ID != CardType.EMPTY;
     }
 }

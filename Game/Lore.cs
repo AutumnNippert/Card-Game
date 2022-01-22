@@ -1,12 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 
 public class Lore
 {
-
-    public static void init()
+    Decks decks;
+    public Lore(Decks d)
     {
-        Dialogue loreMasterTalk = new Dialogue(NPC.NPCs.LoreMaster.npc, "LoreMaster.dialogue");
+        decks = d;
+    }
+
+    public void init()
+    {
+        Dialogue loreMasterTalk = new Dialogue(new NPC(NPC.Type.Friendly, "organ man", 100), "LoreMaster.dialogue");
         loreMasterTalk.init();
         Utility.ConsoleFunctions.waitForInput();
         while (true)
@@ -14,7 +21,7 @@ public class Lore
             Utility.ConsoleFunctions.cls();
             Console.WriteLine(listCardNames());
             Console.WriteLine();
-            Menu cardSelectMenu = new Menu("logic.Card Select\nType the name of the card, or type x to go back", new List<String>());
+            Menu cardSelectMenu = new Menu("logic.Card Select\nType the name of the card, or type x to go back", new List<string>());
             cardSelectMenu.display();
             if (cardSelectMenu.value == "x")
             {
@@ -23,30 +30,30 @@ public class Lore
             else
             {
                 Utility.ConsoleFunctions.cls();
-                Card c = Deck.getCard(cardSelectMenu.value);
+                Card c = Deck.getCard(cardSelectMenu.value, decks);
                 Console.WriteLine(getCardDetails(c));
                 Utility.ConsoleFunctions.waitForInput();
             }
         }
     }
 
-    public static String listCardNames()
+    public string listCardNames()
     {
-        String str = "Cards:\n";
-        for (int i = 0; i < Deck.allCards.getCards().Count; i++)
+        string str = "Cards:\n";
+        for (int i = 0; i < JsonSerializer.Deserialize<Deck>(File.ReadAllText(@"assets\masterDeck.json")).getCards().Count; i++)
         {
             if (i % 3 == 0 && i > 0)
             {
                 str += "\n";
             }
-            str += String.Format("%-20s", Deck.allCards.getCards()[i].name);
+            str += string.Format("%-20s", JsonSerializer.Deserialize<Deck>(File.ReadAllText(@"assets\masterDeck.json")).getCards()[i].name);
         }
         return str;
     }
 
-    public static String getCardDetails(Card c)
+    public string getCardDetails(Card c)
     {
-        return (String.Format(@"
+        return (string.Format(@"
                 Name: % -20s
                 Health: % -2d
                 Attack Power: % -2d

@@ -1,0 +1,93 @@
+﻿{
+  "cards": 
+  [
+    {
+      "name": "Empty",
+      "ID": 0,
+      "mana": 0,
+      "atk": 0,
+      "hp": 0,
+      "desc": ""
+    },
+    {
+      "name": "Knight",
+      "ID": 1,
+      "mana": 2,
+      "atk": 2,
+      "hp": 2,
+      "desc": "Knight"
+    },
+    {
+      "name": "Hunter",
+      "ID": 2,
+      "mana": 2,
+      "atk": 2,
+      "hp": 2,
+      "desc": "Knight"
+    },
+    {
+      "name": "Wizard",
+      "ID": 3,
+      "mana": 2,
+      "atk": 2,
+      "hp": 2,
+      "desc": "Knight"
+    },
+    {
+      "name": "Tank",
+      "ID": 4,
+      "mana": 4,
+      "atk": 2,
+      "hp": 5,
+      "desc": "Tank"
+    },
+    {
+      "name": "Peasant",
+      "ID": 5,
+      "mana": 1,
+      "atk": 1,
+      "hp": 1,
+      "desc": "Peasant of Place"
+    },
+    {
+      "name": "Plague Being",
+      "ID": 6,
+      "mana": 1,
+      "atk": 1,
+      "hp": 1,
+      "desc": "An infectee of the plague, unrecognizable even by the ones close to them."
+    },
+    {
+      "name": "Drunkard",
+      "ID": 7,
+      "mana": 2,
+      "atk": 3,
+      "hp": 1,
+      "desc": "Drunk man that is infected with the plague."
+    },
+    {
+      "name": "Sod of Atlas",
+      "ID": 8,
+      "mana": 8,
+      "atk": 7,
+      "hp": 5,
+      "desc": "Follower of the Cult of Atlas."
+    },
+    {
+      "name": "Shattered Sword",
+      "ID": 9,
+      "mana": 1,
+      "atk": 1,
+      "hp": 1,
+      "desc": "Thoughts: Well, it got me here, so might as well...\n\nDescription: Broken sword in a way that it will inflict bleed on the foe."
+    },
+    {
+      "name": "Straight Sword",
+      "ID": 10,
+      "mana": 2,
+      "atk": 2,
+      "hp": 2,
+      "desc": "Thoughts: Ol' faithful. Can't go wrong with it.\n\nDescription: Robust straight sword, used by the knights of Armana to protect king Calunoth.\nWhen Calunoth was a young boy, he used to walk to school. Now he does not. He is in a wheelchair. His new name, Gherman the first hunter."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{0} //start of file
+Yo im the lore master.
+How are you doing?
+{1.1} //good
+Thats cool
+{1.2} //bad
+That sucks
+{2}
+Want to play a game of cards?
+{2.1} //Yes
+Ok lets play
+{2.2} //No
+okay maybe another time

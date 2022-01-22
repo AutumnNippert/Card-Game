@@ -6,26 +6,40 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <COMReference Include="{22d6f304-b0f6-11d0-94ab-0080c74c7e95}">
-      <WrapperTool>tlbimp</WrapperTool>
-      <VersionMinor>0</VersionMinor>
-      <VersionMajor>1</VersionMajor>
-      <Guid>22d6f304-b0f6-11d0-94ab-0080c74c7e95</Guid>
-    </COMReference>
-    <COMReference Include="{6bf52a50-394a-11d3-b153-00c04f79faa6}">
-      <WrapperTool>tlbimp</WrapperTool>
-      <VersionMinor>0</VersionMinor>
-      <VersionMajor>1</VersionMajor>
-      <Guid>6bf52a50-394a-11d3-b153-00c04f79faa6</Guid>
-    </COMReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Assets\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <FrameworkReference Include="Microsoft.WindowsDesktop.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="assets\cardDecks.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\dialogue\dialogueRules.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\dialogue\exampleLoop.dialogue">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\dialogue\introNarrator.dialogue">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\dialogue\LoreMaster.dialogue">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\masterDeck.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\music\Cave.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\music\Fight(old).wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\music\Fight.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="assets\music\MainMenu.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 
 public class Player {
-    private List<Card> cards = new List<Card>();
-    private int playerNumber;
-    private int mana;
-    private int health;
-    private Card weapon = new Card();
-    private Deck deck;
+    public List<Card> cards = new List<Card>();
+    public int playerNumber { get; set; }
+    public int mana { get; set; }
+    public int health { get; set; }
+    public Card weapon = new Card();
+    public Deck deck { get; set; }
 
     public Player(int number, Deck deck, int health) {
         this.playerNumber = number;
@@ -70,33 +70,33 @@ public class Player {
         this.weapon = weapon;
     }
 
-    public String displayCards( ) {
-        String[] strs = { "", "", "", "", "" };
+    public string displayCards( ) {
+        string[] strs = { "", "", "", "", "" };
         foreach (Card card in cards) {
             const int cardHeight = 5;
             for (int j = 0; j < cardHeight; j++) {
-                strs[j] += (card.toString().Split("\n")[j] + "\t");
+                strs[j] += (card.toString().Split("\r\n")[j] + "\t");
             }
         }
 
-        String str = "";
-        foreach (String s in strs) {
+        string str = "";
+        foreach (string s in strs) {
             str += s + "\n";
         }
         return str.Substring( 0, str.Length - 1 );
     }
 
-    public String displayCardBacks( ) {
-        String[] strs = { "", "", "", "", "" };
+    public string displayCardBacks( ) {
+        string[] strs = { "", "", "", "", "" };
         for (int i = 0; i < cards.Count; i++ ) {
             const int cardHeight = 5;
             for (int j = 0; j < cardHeight; j++ ) {
-                strs[ j ] += ( cards[i].back.Split( "\n" )[ j ] + "\t" );
+                strs[ j ] += ( cards[i].back.Split( "\r\n" )[ j ] + "\t" );
             }
         }
 
-        String str = "";
-        foreach (String s in strs) {
+        string str = "";
+        foreach (string s in strs) {
             str += s + "\n";
         }
         return str.Substring( 0, str.Length - 1 );
@@ -133,12 +133,12 @@ public class Player {
         return false;
     }
 
-    public bool isWeapon( Card c ) {
-        return Deck.WEAPONS.getCards().Contains(c);
-    }
+    //public bool isWeapon( Card c , AIDecks decks) {
+    //    return decks.Weapons.getCards().Contains(c);
+    //}
 
 
-    public String displayPlayer(bool isEnemy ) {
+    public string displayPlayer(bool isEnemy ) {
         return isEnemy ?
                 "Opponent's Hand\t\tMana: " + Utility.Colors.CYAN + getMana( ) + Utility.Colors.RESET + "\t\tHealth: " + Utility.Colors.RED + getHealth( ) + Utility.Colors.RESET + "\n" +
                         displayCardBacks( ) + "\n" +

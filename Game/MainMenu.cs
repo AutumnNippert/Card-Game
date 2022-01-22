@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 public class MainMenu
 {
-    public static void init()
+    public void init()
     {
         //MusicPlayer musicPlayer = new MusicPlayer( );
         //try {
@@ -15,7 +15,7 @@ public class MainMenu
         //    System.out.println( "Failed to play music\n" + e.toString( ) );
         //    Utility.ConsoleFunctions.wait( 5000 );
         //}
-        Menu mainMenu = new Menu("Main Menu", new List<String> {
+        Menu mainMenu = new Menu("Main Menu", new List<string> {
 
                  "Start Game" ,
                  "Lore" ,
@@ -27,16 +27,33 @@ public class MainMenu
         {
             Utility.ConsoleFunctions.cls();
             mainMenu.display();
+            Decks decks = new Decks();
+            decks.initDecks();
             try
             {
                 int i = mainMenu.getIntValue();
                 if (i == 1)
                 {
-                    Match.init();
+                    //initDecks
+
+
+                    Board board = new Board(
+                        new[] {
+                    new[]{new Card(), new Card(), new Card(), new Card()},
+                    new[]{new Card(), new Card(), new Card(), new Card()}
+                        });
+
+                    Player opponent = new Player(1, decks.Undead, 20);
+                    Player player = new Player(2, decks.Human, 20);
+
+                    Match match = new Match(player, opponent, board, decks);
+
+                    match.init();
                 }
                 else if (i == 2)
                 {
-                    //lore page
+                    Lore lore = new Lore(decks);
+                    lore.init();
                 }
                 else if (i == 3)
                 {
