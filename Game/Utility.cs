@@ -54,11 +54,11 @@ public class Utility {
         public static void gameOver( ) {
             Console.WriteLine( @"
                       _____                         ____                 
-                     / ____|                       / __ \\                
+                     / ____|                       / __ \                
                     | |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __ 
-                    | | |_ |/ _` | '_ ` _ \\ / _ \\ | |  | \\ \\ / / _ \\ '__|
-                    | |__| | (_| | | | | | |  __/ | |__| |\\ V /  __/ |   
-                     \\_____|\\__,_|_| |_| |_|\\___|  \\____/  \\_/ \\___|_|   
+                    | | |_ |/ _` | '_ ` _ \ / _ \ | |  | \ \ / / _ \ '__|
+                    | |__| | (_| | | | | | |  __/ | |__| |\ V /  __/ |   
+                     \_____|\__,_|_| |_| |_|\___|  \____/  \_/ \___|_|   
                                                 "
             );
         }
@@ -107,7 +107,7 @@ public class Utility {
         public static bool contains(List<Card> cards, Card c) {
             //I hate this but doing cards.contains(c); doesn't work
             foreach (Card card in cards) {
-                if (c.getType().getName().equals(card.getType().getName())) {
+                if (c.name == card.name) {
                     return true;
                 }
             }
@@ -117,16 +117,16 @@ public class Utility {
         public static void remove(List<Card> cards, Card c) {
             //I also hate this but doing cards.remove(c); doesn't work
             foreach (Card card in cards) {
-                if (c.getType().getName().equals(card.getType().getName())) {
-                    cards.remove(card);
+                if (c.name == card.name) {
+                    cards.Remove(card);
                     break;
                 }
             }
         }
 
         public static int getIndex(List<Card> cards, Card c) {
-            for (int i = 0; i < cards.size() - 1; i++) {
-                if (c.getType().getName().equals(cards.get(i).getType().getName())) {
+            for (int i = 0; i < cards.Count - 1; i++) {
+                if (c.name == cards[i].name) {
                     return i;
                 }
             }

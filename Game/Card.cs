@@ -25,13 +25,15 @@ public class Card {
             │                │
             └────────────────┘
             ";
-    private CardType type;
-    private int mana;
-    private int atk;
-    private int hp;
-    private String desc;
+    public String name { get; set; }
+    public CardType type { get; set; }
+    public int mana { get; set; }
+    public int atk { get; set; }
+    public int hp { get; set; }
+    public String desc { get; set; }
 
-   public Card(){
+    public Card(){
+        this.name = "Empty";
         this.type = CardType.EMPTY;
         this.mana = 0;
         this.atk = 0;
@@ -53,37 +55,8 @@ public class Card {
         this.type = type;
     }
 
-    //Getters / Setters
-    public int getAtk( ) {
-        return atk;
-    }
-
-    public void setAtk( int atk ) {
-        this.atk = atk;
-    }
-
-    public int getHp( ) {
-        return hp;
-    }
-
-    public void setHp( int hp ) {
-        this.hp = hp;
-    }
-
-    public int getMana( ) {
-        return mana;
-    }
-
-    public String getDesc( ) {
-        return desc;
-    }
-
-    public CardType getType() {
-        return type;
-    }
-
     public String toString( ) {
-        if ( this.type.cardtype == CardType.EMPTY ) {
+        if ( this.type == CardType.EMPTY ) {
             return @"
                     ┌────────────────┐
                     │                │
@@ -100,10 +73,10 @@ public class Card {
                             │ %-1s         %13s │
                             └────────────────┘
                             ",
-                    this.type.name,
-                    ( Utility.Colors.CYAN + getMana( ) + Utility.Colors.RESET ),
-                    ( Utility.Colors.RED + getAtk( ) + Utility.Colors.RESET ),
-                    ( Utility.Colors.GREEN + getHp( ) + Utility.Colors.RESET ) );
+                    this.name,
+                    ( Utility.Colors.CYAN + this.mana + Utility.Colors.RESET ),
+                    ( Utility.Colors.RED + this.atk + Utility.Colors.RESET ),
+                    ( Utility.Colors.GREEN + this.hp + Utility.Colors.RESET ) );
         }
     }
 }

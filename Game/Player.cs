@@ -24,20 +24,22 @@ public class Player {
     public Card getRandomCard( ) {
         int cardIndex = getRandInt( 0, cards.Count - 1 );
         Console.WriteLine( cardIndex );
-        return cards.get( cardIndex );
+        return cards[cardIndex];
     }
 
     public void drawCardFromDeck( ) {
-        if (deck.getCards().size() > 0) {
-            int cardIndex = getRandInt(0, deck.getCards().size() - 1);
-            Card c = deck.getCards().get(cardIndex);
+        if (deck.getCards().Count > 0) {
+            int cardIndex = getRandInt(0, deck.getCards().Count - 1);
+            Card c = deck.getCards()[cardIndex];
             giveCard(c);
-            deck.getCards().remove(c);
+            deck.getCards().Remove(c);
         }
     }
 
-    public int getRandInt( int min, int max ) {
-        return ( int ) ( Math.random( ) * ( ( max - min ) + 1 ) ) + min;
+    public int getRandInt(int min, int max)
+    {
+        System.Random rand = new System.Random();
+        return (int)rand.Next(min, max);
     }
 
     private List< Card > getCards( ) {
@@ -70,42 +72,42 @@ public class Player {
 
     public String displayCards( ) {
         String[] strs = { "", "", "", "", "" };
-        for (Card card : cards) {
-            final int cardHeight = 5;
+        foreach (Card card in cards) {
+            const int cardHeight = 5;
             for (int j = 0; j < cardHeight; j++) {
-                strs[j] += (card.toString().split("\n")[j] + "\t");
+                strs[j] += (card.toString().Split("\n")[j] + "\t");
             }
         }
 
         String str = "";
-        for (String s : strs) {
+        foreach (String s in strs) {
             str += s + "\n";
         }
-        return str.substring( 0, str.length( ) - 1 );
+        return str.Substring( 0, str.Length - 1 );
     }
 
     public String displayCardBacks( ) {
         String[] strs = { "", "", "", "", "" };
-        for (int i = 0; i < cards.size( ); i++ ) {
-            final int cardHeight = 5;
+        for (int i = 0; i < cards.Count; i++ ) {
+            const int cardHeight = 5;
             for (int j = 0; j < cardHeight; j++ ) {
-                strs[ j ] += ( cards.get( i ).back.split( "\n" )[ j ] + "\t" );
+                strs[ j ] += ( cards[i].back.Split( "\n" )[ j ] + "\t" );
             }
         }
 
         String str = "";
-        for (String s : strs) {
+        foreach (String s in strs) {
             str += s + "\n";
         }
-        return str.substring( 0, str.length( ) - 1 );
+        return str.Substring( 0, str.Length - 1 );
     }
 
     public void playCard( Board board, Card c, Coordinate pos ) {
         //I hate this but doing cards.remove(c); doesn't work
         Utility.ArrayHelper.remove(cards, c);
-        decreaseMana(c.getMana());
+        decreaseMana(c.mana);
         board.placeCard(c, pos);
-        Console.WriteLine("Card: " + c.getType().getName() + " played at position: " + (pos.x + 1));
+        Console.WriteLine("Card: " + c.name + " played at position: " + (pos.x + 1));
         Utility.ConsoleFunctions.wait(1000);
     }
 
@@ -122,21 +124,21 @@ public class Player {
     }
 
     //returning false when shouldn't be
-    public boolean hasCard( Card c ) {
-        for (int i = 0; i < cards.size() - 1; i++) {
-            if (cards.get(i).getType().getName().equals(c.getType().getName())) {
+    public bool hasCard( Card c ) {
+        for (int i = 0; i < cards.Count - 1; i++) {
+            if (cards[i].name == (c.name)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean isWeapon( Card c ) {
-        return Deck.WEAPONS.getCards().contains(c);
+    public bool isWeapon( Card c ) {
+        return Deck.WEAPONS.getCards().Contains(c);
     }
 
 
-    public String displayPlayer( boolean isEnemy ) {
+    public String displayPlayer(bool isEnemy ) {
         return isEnemy ?
                 "Opponent's Hand\t\tMana: " + Utility.Colors.CYAN + getMana( ) + Utility.Colors.RESET + "\t\tHealth: " + Utility.Colors.RED + getHealth( ) + Utility.Colors.RESET + "\n" +
                         displayCardBacks( ) + "\n" +
