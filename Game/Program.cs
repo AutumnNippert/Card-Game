@@ -13,14 +13,21 @@ namespace Game
 
         Program()
         {
-            //IntroSequence intro = new IntroSequence();
-            //intro.init();
-            //MainMenu mm = new MainMenu();
-            //mm.init();
 
-            DialogueInterpreter DI = new DialogueInterpreter();
+            Character c = new Character();
+            c.addQuest(new Quest("tomato sauce", new[] { "Tomato Sauce Hint" }));
+            c.completeQuest("tomato sauce");
+            DialogueInterpreter DI = new DialogueInterpreter(c);
             DI.loadFile(@"assets\dialogue\test.dlg");
             DI.init();
+            Console.WriteLine("Talking again time");
+            Utility.ConsoleFunctions.wait(1000);
+            DI.init();
+            Decks decks = new Decks();
+            decks.initDecks();
+            c.setDeck(decks.Human);
+            MainMenu mm = new MainMenu(c);
+            mm.init();
 
             //Console.Write(Enum.GetName(typeof(CardType),decks.Human.cards[0].type));
             //typeof(Program).GetMethod("helloWorld").Invoke(this,new object[] { "test" });.

@@ -4,5 +4,7 @@ How are you doing?
 @name="pt1"
 This is part 1.
 Pretty cool tho.
-Going back to intro.
-@goto="intro"
+Going back to intro unless you have completed tomato sauce.
+@leave
+@goto="intro":flag="tomato sauce"
+You have completed tomato sauce pog

@@ -83,7 +83,7 @@ namespace Game
                 Console.Clear();
             }
 
-            public static void wait(int milliseconds)
+            public static void wait(int milliseconds = 500)
             {
                 try
                 {
@@ -95,15 +95,9 @@ namespace Game
                 }
             }
 
-            public static void waitForInput(string message)
+            public static void waitForInput(string message = "Awaiting Input...")
             {
                 Console.Write(message);
-                Console.ReadLine();
-
-            }
-            public static void waitForInput()
-            {
-                Console.Write("Awaiting Input...");
                 Console.ReadLine();
 
             }
@@ -206,6 +200,17 @@ namespace Game
         public static void initConfig(string filePath)
         {
             config = JsonSerializer.Deserialize<Config>(File.ReadAllText(filePath));
+        }
+
+        public static class Game {
+            public static Board createEmptyBoard()
+            {
+                return new Board(
+                            new[] {
+                    new[]{new Card(), new Card(), new Card(), new Card()},
+                    new[]{new Card(), new Card(), new Card(), new Card()}
+                            });
+            }
         }
     }
 

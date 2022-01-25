@@ -16,6 +16,7 @@ namespace Game
             Hostile
         }
 
+        Quest[] quests;
         Type type;
         string name;
         int hp;
@@ -27,7 +28,7 @@ namespace Game
             this.hp = hp;
         }
 
-
+        //quests will just be bools and strings for hints that get set in some places
 
     }
 }

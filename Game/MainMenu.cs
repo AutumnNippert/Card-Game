@@ -6,6 +6,11 @@ namespace Game
 {
     public class MainMenu
     {
+        Character character;
+        public MainMenu(Character c)
+        {
+            character = c;
+        }
         public void init()
         {
             //MusicPlayer musicPlayer = new MusicPlayer( );
@@ -38,13 +43,9 @@ namespace Game
                         //initDecks
 
 
-                        Board board = new Board(
-                            new[] {
-                    new[]{new Card(), new Card(), new Card(), new Card()},
-                    new[]{new Card(), new Card(), new Card(), new Card()}
-                            });
+                        Board board = Utility.Game.createEmptyBoard();
 
-                        Player opponent = new Player(1, decks.Undead, 20);
+                        Player opponent = new Player(1, character.deck, 20);
                         Player player = new Player(2, decks.Human, 20);
 
                         Match match = new Match(player, opponent, board, decks);
