@@ -1,21 +1,22 @@
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-public class MainMenu
+namespace Game
 {
-    public void init()
+    public class MainMenu
     {
-        //MusicPlayer musicPlayer = new MusicPlayer( );
-        //try {
-        //    musicPlayer = new MusicPlayer( "Assets\\Music\\MainMenu.wav" );
-        //    musicPlayer.loop( );
-        //} catch ( Exception e ) {
-        //    System.out.println( "Failed to play music\n" + e.toString( ) );
-        //    Utility.ConsoleFunctions.wait( 5000 );
-        //}
-        Menu mainMenu = new Menu("Main Menu", new List<string> {
+        public void init()
+        {
+            //MusicPlayer musicPlayer = new MusicPlayer( );
+            //try {
+            //    musicPlayer = new MusicPlayer( "Assets\\Music\\MainMenu.wav" );
+            //    musicPlayer.loop( );
+            //} catch ( Exception e ) {
+            //    System.out.println( "Failed to play music\n" + e.toString( ) );
+            //    Utility.ConsoleFunctions.wait( 5000 );
+            //}
+            Menu mainMenu = new Menu("Main Menu", new List<string> {
 
                  "Start Game" ,
                  "Lore" ,
@@ -23,51 +24,52 @@ public class MainMenu
 
         });
 
-        while (true)
-        {
-            Utility.ConsoleFunctions.cls();
-            mainMenu.display();
-            Decks decks = new Decks();
-            decks.initDecks();
-            try
+            while (true)
             {
-                int i = mainMenu.getIntValue();
-                if (i == 1)
+                Utility.ConsoleFunctions.cls();
+                mainMenu.display();
+                Decks decks = new Decks();
+                decks.initDecks();
+                try
                 {
-                    //initDecks
+                    int i = mainMenu.getIntValue();
+                    if (i == 1)
+                    {
+                        //initDecks
 
 
-                    Board board = new Board(
-                        new[] {
+                        Board board = new Board(
+                            new[] {
                     new[]{new Card(), new Card(), new Card(), new Card()},
                     new[]{new Card(), new Card(), new Card(), new Card()}
-                        });
+                            });
 
-                    Player opponent = new Player(1, decks.Undead, 20);
-                    Player player = new Player(2, decks.Human, 20);
+                        Player opponent = new Player(1, decks.Undead, 20);
+                        Player player = new Player(2, decks.Human, 20);
 
-                    Match match = new Match(player, opponent, board, decks);
+                        Match match = new Match(player, opponent, board, decks);
 
-                    match.init();
+                        match.init();
+                    }
+                    else if (i == 2)
+                    {
+                        Lore lore = new Lore(decks);
+                        lore.init();
+                    }
+                    else if (i == 3)
+                    {
+                        return;
+                    }
                 }
-                else if (i == 2)
+                catch (Exception e)
                 {
-                    Lore lore = new Lore(decks);
-                    lore.init();
+                    Console.WriteLine("Im at the main menu again?");
+                    Debug.Write(e.StackTrace);
+                    Utility.ConsoleFunctions.waitForInput();
                 }
-                else if (i == 3)
-                {
-                    return;
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Im at the main menu again?");
-                Debug.Write(e.StackTrace);
-                Utility.ConsoleFunctions.waitForInput();
+
             }
 
         }
-
     }
 }

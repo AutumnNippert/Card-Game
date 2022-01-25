@@ -8,55 +8,58 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.IO;
 
-public class Deck
+namespace Game
 {
-    public static Card getCard(string str, Decks decks)
+    public class Deck
     {
-        foreach (Card c in JsonSerializer.Deserialize<Deck>(File.ReadAllText(@"assets\masterDeck.json")).getCards())
+        public static Card getCard(string str, Decks decks)
         {
-            if (c.name == (str))
+            foreach (Card c in JsonSerializer.Deserialize<Deck>(File.ReadAllText(@"assets\masterDeck.json")).getCards())
             {
-                return c;
+                if (c.name == (str))
+                {
+                    return c;
+                }
+            }
+            throw new Exception("No Card found with Name: " + str);
+        }
+
+        public List<Card> cards { get; set; }
+
+        public Deck(List<Card> cards)
+        {
+            this.cards = cards;
+        }
+
+        public Deck()
+        {
+            this.cards = new List<Card>();
+        }
+
+        public void addCards(int[] IDs)
+        {
+            for (int i = 0; i < IDs.Length; i++)
+            {
+                cards.Add(getCardByID(IDs[i]));
             }
         }
-        throw new Exception("No Card found with Name: " + str);
-    }
 
-    public List<Card> cards { get; set; }
-
-    public Deck(List<Card> cards)
-    {
-        this.cards = cards;
-    }
-
-    public Deck()
-    {
-        this.cards = new List<Card>();
-    }
-
-    public void addCards(int[] IDs)
-    {
-        for (int i = 0; i < IDs.Length; i++)
+        public List<Card> getCards()
         {
-            cards.Add(getCardByID(IDs[i]));
+            return cards;
         }
-    }
 
-    public List<Card> getCards()
-    {
-        return cards;
-    }
-
-    public static Card getCardByID(int ID)
-    {
-        List<Card> tempCards = JsonSerializer.Deserialize<Deck>(File.ReadAllText(@"assets\masterDeck.json")).getCards();
-        foreach (Card c in tempCards)
+        public static Card getCardByID(int ID)
         {
-            if ((int)c.ID == ID)
+            List<Card> tempCards = JsonSerializer.Deserialize<Deck>(File.ReadAllText(@"assets\masterDeck.json")).getCards();
+            foreach (Card c in tempCards)
             {
-                return c;
+                if ((int)c.ID == ID)
+                {
+                    return c;
+                }
             }
+            return new Card();
         }
-        return new Card();
     }
 }

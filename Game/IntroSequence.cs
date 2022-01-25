@@ -1,10 +1,14 @@
 using System;
 
-public class IntroSequence {
-    public IntroSequence() { }
-    public void init( ) {
-        Utility.ConsoleFunctions.cls( );
-        Console.WriteLine( @"
+namespace Game
+{
+    public class IntroSequence
+    {
+        public IntroSequence() { }
+        public void init()
+        {
+            Utility.ConsoleFunctions.cls();
+            Console.WriteLine(@"
                                 
                                 
                                 
@@ -13,10 +17,10 @@ public class IntroSequence {
                                 
                                 
                                 
-                " );
-        Utility.ConsoleFunctions.wait( 4000 );
-        Utility.ConsoleFunctions.cls( );
-        Console.WriteLine( @"
+                ");
+            Utility.ConsoleFunctions.wait(4000);
+            Utility.ConsoleFunctions.cls();
+            Console.WriteLine(@"
                                 
                                 
                                 
@@ -25,7 +29,8 @@ public class IntroSequence {
                                 
                                 
                                 
-                " );
-        Utility.ConsoleFunctions.wait( 2000 );
+                ");
+            Utility.ConsoleFunctions.wait(2000);
+        }
     }
 }

@@ -1,29 +1,33 @@
 using System.Media;
-public class MusicPlayer
+
+namespace Game
 {
-
-    // constructor to initialize streams and clip
-    SoundPlayer player;
-    public MusicPlayer(string filePath)
+    public class MusicPlayer
     {
-        player = new SoundPlayer();
-        player.SoundLocation = filePath;
-    }
-    public MusicPlayer() { }
+
+        // constructor to initialize streams and clip
+        SoundPlayer player;
+        public MusicPlayer(string filePath)
+        {
+            player = new SoundPlayer();
+            player.SoundLocation = filePath;
+        }
+        public MusicPlayer() { }
 
 
-    public void play()
-    {
-        player.Play();
-    }
+        public void play()
+        {
+            player.Play();
+        }
 
-    public void loop()
-    {
-        player.PlayLooping();
-    }
+        public void loop()
+        {
+            player.PlayLooping();
+        }
 
-    public void close()
-    {
-        player.Stop();
+        public void close()
+        {
+            player.Stop();
+        }
     }
 }

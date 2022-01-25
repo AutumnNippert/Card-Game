@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using System.Text;
 
-class Dialogue
+namespace Game
 {
-    NPC npc;
-    string fileName;
-    int position;
-
-
-    public Dialogue(NPC npc, string fileName)
+    class Dialogue
     {
-        this.npc = npc;
-        this.fileName = fileName;
-    }
+        NPC npc;
+        string fileName;
+        int position;
 
-    public void init()
-    {
 
+        public Dialogue(NPC npc, string fileName)
+        {
+            this.npc = npc;
+            this.fileName = fileName;
+        }
+
+        public void init()
+        {
+
+        }
     }
 }

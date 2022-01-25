@@ -1,0 +1,8 @@
+﻿@name="intro"
+Hey there!
+How are you doing?
+@name="pt1"
+This is part 1.
+Pretty cool tho.
+Going back to intro.
+@goto="intro"
